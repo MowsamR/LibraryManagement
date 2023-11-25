@@ -17,6 +17,11 @@ public class Library {
         List<Book> out = new ArrayList<>(books.values());
         return Collections.unmodifiableList(out);
     }
+    
+    public List<Patron> getPatrons() {
+    List<Patron> patronList = new ArrayList<>(patrons.values());
+    return Collections.unmodifiableList(patronList);
+    }
 
     public Book getBookByID(int id) throws LibraryException {
         if (!books.containsKey(id)) {
@@ -27,7 +32,10 @@ public class Library {
 
     public Patron getPatronByID(int id) throws LibraryException {
         // TODO: implementation here
-        return null;
+        if (!patrons.containsKey(id)) {
+            throw new LibraryException("There is no patron with that ID.");
+        }
+        return patrons.get(id);
     }
 
     public void addBook(Book book) {
@@ -39,6 +47,11 @@ public class Library {
 
     public void addPatron(Patron patron) {
         // TODO: implementation here
+        if (patrons.containsKey(patron.getId())) {
+            throw new IllegalArgumentException("Duplicate patron ID.");
+        }
+        patrons.put(patron.getId(), patron);
+
     }
 }
  
