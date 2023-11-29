@@ -39,8 +39,11 @@ public class Patron {
         return phone;
     } 
 
-    public void setId(String newPhone) {
+    public void setPhone(String newPhone) {
         this.phone = newPhone;
+    }
+    public void getBooks(){
+        //TODO: Get a list of books that the patron has borrowed.
     }
     
     public void borrowBook(Book book, LocalDate dueDate) throws LibraryException {
