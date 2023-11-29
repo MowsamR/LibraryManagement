@@ -14,10 +14,11 @@ public class LibraryData {
     // runs only once when the object gets loaded to memory
     static {
         dataManagers.add(new BookDataManager());
+        dataManagers.add(new PatronDataManager());
         
         /* Uncomment the two lines below when the implementation of their 
         loadData() and storeData() methods is complete */
-        // dataManagers.add(new PatronDataManager());
+        
         // dataManagers.add(new LoanDataManager());
     }
     

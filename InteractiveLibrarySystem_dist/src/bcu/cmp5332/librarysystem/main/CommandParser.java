@@ -1,9 +1,13 @@
 package bcu.cmp5332.librarysystem.main;
 
 import bcu.cmp5332.librarysystem.commands.LoadGUI;
+import bcu.cmp5332.librarysystem.commands.Return;
 import bcu.cmp5332.librarysystem.commands.ListBooks;
+import bcu.cmp5332.librarysystem.commands.ListLoans;
+import bcu.cmp5332.librarysystem.commands.ListPatrons;
 import bcu.cmp5332.librarysystem.commands.AddBook;
 import bcu.cmp5332.librarysystem.commands.AddPatron;
+import bcu.cmp5332.librarysystem.commands.Borrow;
 import bcu.cmp5332.librarysystem.commands.Command;
 import bcu.cmp5332.librarysystem.commands.Help;
 import java.io.BufferedReader;
@@ -39,11 +43,13 @@ public class CommandParser {
                 return new AddPatron(name, phone);
             } else if (cmd.equals("loadgui")) {
                 return new LoadGUI();
-            } else if (parts.length == 1) {
+            } else if(cmd.equals("listloans")) {
+            	return new ListLoans();
+            }else if (parts.length == 1) {
                 if (line.equals("listbooks")) {
                     return new ListBooks();
                 } else if (line.equals("listpatrons")) {
-                     
+                     return new ListPatrons();
                 } else if (line.equals("help")) {
                     return new Help();
                 }
@@ -60,11 +66,11 @@ public class CommandParser {
                 int bookID = Integer.parseInt(parts[2]);
 
                 if (cmd.equals("borrow")) {
-                    
+                    return new Borrow(bookID, patronID);
                 } else if (cmd.equals("renew")) {
-                    
+                	
                 } else if (cmd.equals("return")) {
-                    
+                	return new Return(bookID, patronID);
                 }
             }
         } catch (NumberFormatException ex) {

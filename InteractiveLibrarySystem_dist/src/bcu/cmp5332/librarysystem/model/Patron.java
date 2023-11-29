@@ -3,6 +3,8 @@ package bcu.cmp5332.librarysystem.model;
 import bcu.cmp5332.librarysystem.main.LibraryException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Patron {
@@ -42,12 +44,13 @@ public class Patron {
     public void setPhone(String newPhone) {
         this.phone = newPhone;
     }
-    public void getBooks(){
+    public List getBooks(){
         //TODO: Get a list of books that the patron has borrowed.
+    	return Collections.unmodifiableList(books);
     }
     
     public void borrowBook(Book book, LocalDate dueDate) throws LibraryException {
-        // TODO: implementation here
+    	this.addBook(book);
     }
 
     public void renewBook(Book book, LocalDate dueDate) throws LibraryException {
@@ -55,11 +58,24 @@ public class Patron {
     }
 
     public void returnBook(Book book) throws LibraryException {
-        // TODO: implementation here
+    	if (books.contains(book)) {
+            books.remove(book);
+            book.returnToLibrary();
+    	}else {
+    		throw new LibraryException(book.getTitle() + "has not been borrowed by " + this.name);
+    	}
     }
     
     public void addBook(Book book) {
-        // TODO: implementation here
+        books.add(book);
+    }
+    public void removeBook(Book book) throws LibraryException {
+        if(books.contains(book)) {
+        	books.remove(book);
+        }else {
+        	throw new LibraryException("This book has not been borrowed by this patron");
+        }
+   
     }
 }
  
