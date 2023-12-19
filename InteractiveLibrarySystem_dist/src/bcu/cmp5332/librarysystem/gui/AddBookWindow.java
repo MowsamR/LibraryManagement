@@ -88,7 +88,7 @@ public class AddBookWindow extends JFrame implements ActionListener {
             String author = authText.getText();
             String publicationYear = pubDateText.getText();
             // create and execute the AddBook Command
-            Command addBook = new AddBook(title, author, publicationYear);
+            Command addBook = new AddBook(title, author, publicationYear, "");
             addBook.execute(mw.getLibrary(), LocalDate.now());
             // refresh the view with the list of books
             mw.displayBooks();
