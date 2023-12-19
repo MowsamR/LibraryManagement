@@ -27,9 +27,7 @@ public class Return implements Command{
 	        book.returnToLibrary();
 		} catch (LibraryException e) {
 			System.out.println("invalid loan");
-		}
-		
-        
+		}    
         
 	}
 }

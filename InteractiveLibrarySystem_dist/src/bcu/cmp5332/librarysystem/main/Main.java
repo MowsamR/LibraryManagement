@@ -21,6 +21,7 @@ public class Main {
             System.out.print("> ");
             String line = br.readLine();
             if (line.equals("exit")) {
+            	LibraryData.store(library);
                 break;
             }
 

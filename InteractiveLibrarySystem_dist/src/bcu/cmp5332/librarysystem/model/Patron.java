@@ -20,7 +20,7 @@ public class Patron {
         this.name = name;
         this.phone = phone;
     }
-
+    
     public int getId() {
         return id;
     } 
@@ -69,6 +69,7 @@ public class Patron {
     public void addBook(Book book) {
         books.add(book);
     }
+    
     public void removeBook(Book book) throws LibraryException {
         if(books.contains(book)) {
         	books.remove(book);
