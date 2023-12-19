@@ -9,14 +9,16 @@ public class Book {
     private String title;
     private String author;
     private String publicationYear;
+    private String publisher;
 
     private Loan loan;
 
-    public Book(int id, String title, String author, String publicationYear) {
+    public Book(int id, String title, String author, String publicationYear, String publisher) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
+        this.publisher = publisher;
     }
 
     public int getId() {
@@ -43,6 +45,14 @@ public class Book {
         this.author = author;
     }
 
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+    
     public String getPublicationYear() {
         return publicationYear;
     }

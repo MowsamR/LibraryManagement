@@ -22,7 +22,6 @@ public class Return implements Command {
 	public void execute(Library library, LocalDate currentDate) throws LibraryException {
 		Patron patron = library.getPatronByID(patronID);
 		Book book = library.getBookByID(bookID);
-<<<<<<< HEAD
 		
 		try {
 			patron.removeBook(book);
@@ -31,7 +30,6 @@ public class Return implements Command {
 			System.out.println("invalid loan");
 		}    
         
-=======
 
 		// Check if book exists in the system
 		if (!library.getBooks().contains(book)) {
@@ -60,6 +58,5 @@ public class Return implements Command {
 			System.out.println("Book: " + book.getTitle() + "is " + Math.abs(numberDaysOverdue) + "days overdue! ");
 		}
 
->>>>>>> 5f3369b81847b862a87fe707038f702da8b9d300
 	}
 }

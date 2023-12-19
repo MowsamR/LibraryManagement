@@ -12,13 +12,15 @@ public class Patron {
     private int id;
     private String name;
     private String phone;
+    private String email;
     private final List<Book> books = new ArrayList<>();
     
     // TODO: implement constructor here
-    public Patron(int id, String name, String phone){
+    public Patron(int id, String name, String phone, String email){
         this.id = id;
         this.name = name;
         this.phone = phone;
+        this.email = email;
     }
     
     public int getId() {
@@ -40,7 +42,13 @@ public class Patron {
     public String getPhone() {
         return phone;
     } 
-
+    
+    public void setEmail(String newEmail) {
+    	this.email = newEmail;
+    }
+    public String getEmail() {
+    	return email;
+    }
     public void setPhone(String newPhone) {
         this.phone = newPhone;
     }

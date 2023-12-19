@@ -20,7 +20,7 @@ public class ListPatrons implements Command{
     public void execute(Library library, LocalDate currentDate) throws LibraryException {
         List<Patron> patrons = library.getPatrons();
         for (Patron patron : patrons) {
-            System.out.println("Patron #" + patron.getId() + " " + patron.getName());
+            System.out.println("Patron #" + patron.getId() + " " + patron.getName() + " " + patron.getPhone() + " " + patron.getEmail());
         }
         System.out.println("Total: " + patrons.size() + " patron(s)");
     }
