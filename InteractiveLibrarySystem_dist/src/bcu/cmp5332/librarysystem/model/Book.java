@@ -4,7 +4,7 @@ import bcu.cmp5332.librarysystem.main.LibraryException;
 import java.time.LocalDate;
 
 public class Book {
-    
+
     private int id;
     private String title;
     private String author;
@@ -23,7 +23,7 @@ public class Book {
 
     public int getId() {
         return id;
-    } 
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -36,11 +36,11 @@ public class Book {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public String getAuthor() {
         return author;
     }
-    
+
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -52,7 +52,7 @@ public class Book {
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
-    
+
     public String getPublicationYear() {
         return publicationYear;
     }
@@ -60,29 +60,42 @@ public class Book {
     public void setPublicationYear(String publicationYear) {
         this.publicationYear = publicationYear;
     }
-	
+
     public String getDetailsShort() {
         return "Book #" + id + " - " + title;
     }
 
     public String getDetailsLong() {
         // TODO: implementation here
-        return null;
+        String newLine = "\n";
+        String longDetails = "Book # " + getId() + newLine + "Title: " + getTitle() + newLine 
+        + "Author: " + getAuthor() + newLine + "Publication year: " + getPublicationYear() + newLine;
+
+        //print the patron name and due date if book is on loan
+        if (isOnLoan() == true) {
+            longDetails = longDetails + loan.getPatron().getName() + newLine + loan.getDueDate();
+        }
+
+        return longDetails;
     }
-    
+
     public boolean isOnLoan() {
         return (loan != null);
     }
-    
+
     public String getStatus() {
         // TODO: implementation here
-        return null;
+        if (isOnLoan() == true) {
+            return "On Loan";
+        } else {
+            return "Available";
+        }
     }
 
     public LocalDate getDueDate() {
         return loan.getDueDate();
     }
-    
+
     public void setDueDate(LocalDate dueDate) throws LibraryException {
         loan.setDueDate​(dueDate);
     }
