@@ -2,6 +2,8 @@ package bcu.cmp5332.librarysystem.gui;
 
 import bcu.cmp5332.librarysystem.model.Book;
 import bcu.cmp5332.librarysystem.model.Library;
+import bcu.cmp5332.librarysystem.model.Patron;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -19,12 +21,13 @@ public class MainWindow extends JFrame implements ActionListener {
     private JMenu adminMenu;
     private JMenu booksMenu;
     private JMenu membersMenu;
+    private JMenu patronsMenu;
 
     private JMenuItem adminExit;
 
     private JMenuItem booksView;
     private JMenuItem booksAdd;
-    private JMenuItem booksDel;	
+    private JMenuItem booksDel;
     private JMenuItem booksIssue;
     private JMenuItem booksReturn;
 
@@ -32,14 +35,16 @@ public class MainWindow extends JFrame implements ActionListener {
     private JMenuItem memAdd;
     private JMenuItem memDel;
 
+    private JMenuItem patronList;
+
     private Library library;
 
     public MainWindow(Library library) {
 
         initialize();
         this.library = library;
-    } 
-    
+    }
+
     public Library getLibrary() {
         return library;
     }
@@ -60,7 +65,7 @@ public class MainWindow extends JFrame implements ActionListener {
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
-        //adding adminMenu menu and menu items
+        // adding adminMenu menu and menu items
         adminMenu = new JMenu("Admin");
         menuBar.add(adminMenu);
 
@@ -102,61 +107,69 @@ public class MainWindow extends JFrame implements ActionListener {
         memAdd.addActionListener(this);
         memDel.addActionListener(this);
 
+        // adding patronMenu menu and menu items
+        patronsMenu = new JMenu("Patrons");
+        menuBar.add(patronsMenu);
+
+        patronList = new JMenuItem("List");
+
         setSize(800, 500);
 
         setVisible(true);
         setAutoRequestFocus(true);
         toFront();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-/* Uncomment the following line to not terminate the console app when the window is closed */
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);        
+        /*
+         * Uncomment the following line to not terminate the console app when the window
+         * is closed
+         */
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-    }	
+    }
 
-/* Uncomment the following code to run the GUI version directly from the IDE */
-//    public static void main(String[] args) throws IOException, LibraryException {
-//        Library library = LibraryData.load();
-//        new MainWindow(library);			
-//    }
-
-
+    /* Uncomment the following code to run the GUI version directly from the IDE */
+    // public static void main(String[] args) throws IOException, LibraryException {
+    // Library library = LibraryData.load();
+    // new MainWindow(library);
+    // }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-
+        // Exit GUI
         if (ae.getSource() == adminExit) {
             System.exit(0);
-        } else if (ae.getSource() == booksView) {
+        }
+        // Display existing books in a table view
+        else if (ae.getSource() == booksView) {
             displayBooks();
-            
-        } else if (ae.getSource() == booksAdd) {
+        }
+        // Displays a popup menu to add book
+        else if (ae.getSource() == booksAdd) {
             new AddBookWindow(this);
-            
+
         } else if (ae.getSource() == booksDel) {
-            
-            
+
         } else if (ae.getSource() == booksIssue) {
-            
-            
+
         } else if (ae.getSource() == booksReturn) {
-            
-            
-        } else if (ae.getSource() == memView) {
-            
-            
-        } else if (ae.getSource() == memAdd) {
-            
-            
+
+        } 
+        //Display a list of existing patrons with no. of borrowed books
+        else if (ae.getSource() == memView) {
+            listPatrons();
+        } 
+        // Displays a popup menu to add patron
+        else if (ae.getSource() == memAdd) {
+            new AddPatronWindow(this);
         } else if (ae.getSource() == memDel) {
-            
-            
+
         }
     }
 
     public void displayBooks() {
         List<Book> booksList = library.getBooks();
         // headers for the table
-        String[] columns = new String[]{"Title", "Author", "Pub Date", "Status"};
+        String[] columns = new String[] { "Title", "Author", "Pub Date", "Status" };
 
         Object[][] data = new Object[booksList.size()][6];
         for (int i = 0; i < booksList.size(); i++) {
@@ -171,5 +184,30 @@ public class MainWindow extends JFrame implements ActionListener {
         this.getContentPane().removeAll();
         this.getContentPane().add(new JScrollPane(table));
         this.revalidate();
-    }	
+    }
+
+
+    //REMEMBER TO ADD DOC!!
+    public void listPatrons() {
+        List<Patron> patronList = library.getPatrons();
+        // headers for the table
+        String[] columns = new String[] { "ID", "Name", "Phone Number", "Email", "Number of Borrowed Books" };
+
+        Object[][] data = new Object[patronList.size()][6];
+
+        for (int i = 0; i < patronList.size(); i++) {
+            Patron patron = patronList.get(i);
+            data[i][0] = patron.getId();
+            data[i][1] = patron.getName();
+            data[i][2] = patron.getPhone();
+            data[i][3] = patron.getEmail();
+            data[i][4] = patron.getBooks().size();
+
+        }
+        JTable table = new JTable(data, columns);
+        this.getContentPane().removeAll();
+        this.getContentPane().add(new JScrollPane(table));
+        this.revalidate();
+    }
+
 }
