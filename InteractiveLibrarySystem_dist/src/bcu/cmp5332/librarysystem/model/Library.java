@@ -44,7 +44,14 @@ public class Library {
         }
         books.put(book.getId(), book);
     }
-
+    
+    public void removeBook(Book book) {
+        if (books.containsKey(book.getId())) {
+            books.remove(book.getId());
+        }else {
+        	throw new IllegalArgumentException("Book is not in the library.");
+        }
+    }
     public void addPatron(Patron patron) {
         // TODO: implementation here
         if (patrons.containsKey(patron.getId())) {
@@ -52,6 +59,15 @@ public class Library {
         }
         patrons.put(patron.getId(), patron);
 
+    }
+    
+    public void removePatron(Patron patron) {
+        if (patrons.containsKey(patron.getId())) {
+        	patrons.remove(patron.getId());            
+        }else {
+        	throw new IllegalArgumentException("Patron is not in the library.");
+        }
+        
     }
 }
  
