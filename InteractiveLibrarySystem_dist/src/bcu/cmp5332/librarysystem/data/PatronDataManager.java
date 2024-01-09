@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class PatronDataManager implements DataManager {
 
-    private final String RESOURCE = "./resources/data/patrons.txt";
+    private final String RESOURCE = "InteractiveLibrarySystem_dist/resources/data/patrons.txt";
     
     @Override
     public void loadData(Library library) throws IOException, LibraryException {

@@ -7,10 +7,13 @@ import bcu.cmp5332.librarysystem.model.Patron;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -36,6 +39,8 @@ public class MainWindow extends JFrame implements ActionListener {
     private JMenuItem memDel;
 
     private JMenuItem patronList;
+    private JButton borrowerDetailsButton;
+    private JPanel buttonPanel;
 
     private Library library;
 
@@ -153,11 +158,11 @@ public class MainWindow extends JFrame implements ActionListener {
 
         } else if (ae.getSource() == booksReturn) {
 
-        } 
-        //Display a list of existing patrons with no. of borrowed books
+        }
+        // Display a list of existing patrons with no. of borrowed books
         else if (ae.getSource() == memView) {
             listPatrons();
-        } 
+        }
         // Displays a popup menu to add patron
         else if (ae.getSource() == memAdd) {
             new AddPatronWindow(this);
@@ -169,15 +174,36 @@ public class MainWindow extends JFrame implements ActionListener {
     public void displayBooks() {
         List<Book> booksList = library.getBooks();
         // headers for the table
-        String[] columns = new String[] { "Title", "Author", "Pub Date", "Status" };
+        String[] columns = new String[] { "Title", "Author", "Pub Date", "Status", "Borrower" };
 
-        Object[][] data = new Object[booksList.size()][6];
+        Object[][] data = new Object[booksList.size()][5]; // Change the size to 5
+
         for (int i = 0; i < booksList.size(); i++) {
             Book book = booksList.get(i);
             data[i][0] = book.getTitle();
             data[i][1] = book.getAuthor();
             data[i][2] = book.getPublicationYear();
             data[i][3] = book.getStatus();
+
+            if (book.isOnLoan()) {
+                // Create a panel to hold the button
+                JPanel buttonPanel = new JPanel();
+                JButton borrowerDetailsButton = new JButton("View Borrower Details");
+                borrowerDetailsButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        DisplayBorrowerDetailsWindow displayWindow = new DisplayBorrowerDetailsWindow(MainWindow.this);
+                        displayWindow.setDisplayBook(book);
+                        displayWindow.setVisible(true);
+                    }
+                });
+                // Add the button to the panel
+                buttonPanel.add(borrowerDetailsButton);
+                // Set the panel as the value in data[i][4]
+                data[i][4] = buttonPanel;
+            } else {
+                data[i][4] = "N/A";
+            }
         }
 
         JTable table = new JTable(data, columns);
@@ -186,8 +212,7 @@ public class MainWindow extends JFrame implements ActionListener {
         this.revalidate();
     }
 
-
-    //REMEMBER TO ADD DOC!!
+    // REMEMBER TO ADD DOC!!
     public void listPatrons() {
         List<Patron> patronList = library.getPatrons();
         // headers for the table

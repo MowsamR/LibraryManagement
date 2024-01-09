@@ -23,7 +23,7 @@ public class Patron {
         this.email = email;
     }
     
-    public int getId() {
+    public Integer getId() {
         return id;
     } 
 
@@ -63,6 +63,7 @@ public class Patron {
 
     public void renewBook(Book book, LocalDate dueDate) throws LibraryException {
         // TODO: implementation here
+        
     }
 
     public void returnBook(Book book) throws LibraryException {
