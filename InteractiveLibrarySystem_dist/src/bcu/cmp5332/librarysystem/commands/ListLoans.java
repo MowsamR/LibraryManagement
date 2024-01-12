@@ -13,9 +13,9 @@ public class ListLoans implements Command{
 		for(Book book: library.getBooks()) {
 			
 			if(book.isOnLoan()) {
-				System.out.println(book.getTitle() + " has been loaned by " + book.getLoan().getPatron().getName());
+				System.out.println("#" + book.getId() + "-" + book.getTitle() + " has been loaned to #" + book.getLoan().getPatron().getId() + "-" + book.getLoan().getPatron().getName() + " until " + book.getLoan().getDueDate());
 			}else {
-				System.out.println(book.getTitle() + " is Available!");
+				System.out.println("#" + book.getId() + "-" +book.getTitle() + " is Available!");
 			}
 		}
 		

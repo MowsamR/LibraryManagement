@@ -1,7 +1,10 @@
 package bcu.cmp5332.librarysystem.main;
 
 import bcu.cmp5332.librarysystem.commands.LoadGUI;
+import bcu.cmp5332.librarysystem.commands.RenewBook;
 import bcu.cmp5332.librarysystem.commands.Return;
+import bcu.cmp5332.librarysystem.commands.ShowBook;
+import bcu.cmp5332.librarysystem.commands.ShowPatron;
 import bcu.cmp5332.librarysystem.commands.ListBooks;
 import bcu.cmp5332.librarysystem.commands.ListLoans;
 import bcu.cmp5332.librarysystem.commands.ListPatrons;
@@ -61,9 +64,9 @@ public class CommandParser {
                 int id = Integer.parseInt(parts[1]);
 
                 if (cmd.equals("showbook")) {
-                    
+                	return new ShowBook(id);
                 } else if (cmd.equals("showpatron")) {
-                    
+                	return new ShowPatron(id);
                 }
             } else if (parts.length == 3) {
                 int patronID = Integer.parseInt(parts[1]);
@@ -72,7 +75,7 @@ public class CommandParser {
                 if (cmd.equals("borrow")) {
                     return new Borrow(bookID, patronID);
                 } else if (cmd.equals("renew")) {
-                	
+                	return new RenewBook(patronID, bookID);
                 } else if (cmd.equals("return")) {
                 	return new Return(bookID, patronID);
                 }

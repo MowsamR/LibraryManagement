@@ -56,13 +56,19 @@ public class Patron {
         //TODO: Get a list of books that the patron has borrowed.
     	return Collections.unmodifiableList(books);
     }
+    public int getNumberOfBorrowedBooks() {
+    	return books.size();
+    }
     
     public void borrowBook(Book book, LocalDate dueDate) throws LibraryException {
     	this.addBook(book);
     }
 
-    public void renewBook(Book book, LocalDate dueDate) throws LibraryException {
+    public void renewBook(Book book) throws LibraryException {
         // TODO: implementation here
+    	Loan loan = book.getLoan();
+    	LocalDate currentDueDate = loan.getDueDate();
+    	loan.setDueDate​(currentDueDate.plusDays(7));
     }
 
     public void returnBook(Book book) throws LibraryException {
