@@ -12,6 +12,8 @@ import bcu.cmp5332.librarysystem.commands.AddBook;
 import bcu.cmp5332.librarysystem.commands.AddPatron;
 import bcu.cmp5332.librarysystem.commands.Borrow;
 import bcu.cmp5332.librarysystem.commands.Command;
+import bcu.cmp5332.librarysystem.commands.DeleteBook;
+import bcu.cmp5332.librarysystem.commands.DeletePatron;
 import bcu.cmp5332.librarysystem.commands.Help;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -67,6 +69,10 @@ public class CommandParser {
                 	return new ShowBook(id);
                 } else if (cmd.equals("showpatron")) {
                 	return new ShowPatron(id);
+                } else if (cmd.equals("deletepatron")) {
+                	return new DeletePatron(id);
+                } else if (cmd.equals("deletebook")) {
+                	return new DeleteBook(id);
                 }
             } else if (parts.length == 3) {
                 int patronID = Integer.parseInt(parts[1]);

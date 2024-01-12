@@ -13,6 +13,7 @@ public class Patron {
     private String name;
     private String phone;
     private String email;
+    private boolean isHidden;
     private final List<Book> books = new ArrayList<>();
     
     // TODO: implement constructor here
@@ -21,6 +22,7 @@ public class Patron {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.isHidden = false; 
     }
     
     public int getId() {
@@ -52,9 +54,32 @@ public class Patron {
     public void setPhone(String newPhone) {
         this.phone = newPhone;
     }
-    public List getBooks(){
+    
+    public String getDetailsShort() {
+        return "Patron #" + id + " - " + name;
+    }
+    
+    public String getDetailsLong() {
+    	String result = "Patron #" + id + " - " + name + 
+        		"\n  Phone number: " + phone +
+        		"\n  Email: " + email;
+    	
+    	if(!books.isEmpty()) {
+    		result += "\n  Books:";
+    	}
+    	
+    	for(Book book: books) {
+    		result += "\n    " + book.getTitle();
+    	}
+        return result;
+    }
+    
+    public List<Book> getBooks(){
         //TODO: Get a list of books that the patron has borrowed.
     	return Collections.unmodifiableList(books);
+    }
+    public boolean isBooksListEmpty() {
+    	return books.isEmpty();
     }
     public int getNumberOfBorrowedBooks() {
     	return books.size();
@@ -91,6 +116,17 @@ public class Patron {
         	throw new LibraryException("This book has not been borrowed by this patron");
         }
    
+    }
+    
+    public void removePatron() {
+    	isHidden = true;
+    }
+    public void reAddPatron() {
+    	isHidden = false;
+    }
+    
+    public boolean isRemoved() {
+    	return isHidden;
     }
 }
  

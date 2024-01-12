@@ -18,10 +18,7 @@ public class ShowBook implements Command{
 	public void execute(Library  library, LocalDate currentDate) {
 		try {
 			Book book = library.getBookByID(bookID);
-			System.out.println("  Title: " + book.getTitle());
-			System.out.println("  Author: " + book.getAuthor());
-			System.out.println("  Publication: " + book.getPublisher());
-			System.out.println("  Publication year: " + book.getPublicationYear());
+			System.out.println(book.getDetailsLong());
 			
 		} catch (LibraryException e) {
 			System.out.println("No book exists in the system with id " + bookID + ".");

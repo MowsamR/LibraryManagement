@@ -19,13 +19,10 @@ public class ShowPatron implements Command{
 	public void execute(Library  library, LocalDate currentDate) {
 		try {
 			Patron patron = library.getPatronByID(patronID);
-			System.out.println("  Name: " + patron.getName());
-			System.out.println("  Phone number: " + patron.getPhone());
-			System.out.println("  Email: " + patron.getEmail());
-			System.out.println(patron.getBooks());
+			System.out.println(patron.getDetailsLong());
 			
 		} catch (LibraryException e) {
-			System.out.println("No patron exists in the system with id " + patronID + ".");
+			System.out.println(e.getMessage());
 		}
 		
 	}

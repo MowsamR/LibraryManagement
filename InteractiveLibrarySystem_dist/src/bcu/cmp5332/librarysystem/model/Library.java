@@ -26,7 +26,11 @@ public class Library {
     public Book getBookByID(int id) throws LibraryException {
         if (!books.containsKey(id)) {
             throw new LibraryException("There is no such book with that ID.");
+        }else if(books.get(id).isRemoved()) {
+        	throw new LibraryException("This book has been deleted and is not accessible.");
         }
+        
+        
         return books.get(id);
     }
 
@@ -34,7 +38,10 @@ public class Library {
         // TODO: implementation here
         if (!patrons.containsKey(id)) {
             throw new LibraryException("There is no patron with that ID.");
+        }else if (patrons.get(id).isRemoved()) {
+            throw new LibraryException("This patron has been deleted and is not accessible.");
         }
+        
         return patrons.get(id);
     }
 
