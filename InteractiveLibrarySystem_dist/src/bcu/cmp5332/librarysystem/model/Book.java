@@ -68,12 +68,13 @@ public class Book {
     public String getDetailsLong() {
         // TODO: implementation here
         String newLine = "\n";
-        String longDetails = "Book # " + getId() + newLine + "Title: " + getTitle() + newLine 
-        + "Author: " + getAuthor() + newLine + "Publication year: " + getPublicationYear() + newLine;
+        String longDetails = "Book # " + getId() + newLine + "Title: " + getTitle() + newLine
+                + "Author: " + getAuthor() + newLine + "Publication year: " + getPublicationYear() + newLine;
 
-        //print the patron name and due date if book is on loan
+        // print the patron name and due date if book is on loan
         if (isOnLoan() == true) {
-            longDetails = longDetails + loan.getPatron().getName() + newLine + loan.getDueDate();
+            longDetails = longDetails + "Borrower: " + loan.getPatron().getName() + newLine + "Due Date: "
+                    + loan.getDueDate() + newLine;
         }
 
         return longDetails;

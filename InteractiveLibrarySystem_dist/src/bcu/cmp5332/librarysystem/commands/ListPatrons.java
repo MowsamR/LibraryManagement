@@ -15,12 +15,13 @@ the total amount of patrons in the library is also displayed to the user.
 
 It is created and executed by the CommandParser when the "listpatrons" command is given by the user. */
 
-public class ListPatrons implements Command{
+public class ListPatrons implements Command {
     @Override
     public void execute(Library library, LocalDate currentDate) throws LibraryException {
         List<Patron> patrons = library.getPatrons();
         for (Patron patron : patrons) {
-            System.out.println("Patron #" + patron.getId() + " " + patron.getName() + " " + patron.getPhone() + " " + patron.getEmail());
+            System.out.println("Patron #" + patron.getId() + " " + patron.getName() + " " + patron.getPhone() + " "
+                    + patron.getEmail());
         }
         System.out.println("Total: " + patrons.size() + " patron(s)");
     }
