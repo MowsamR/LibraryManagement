@@ -14,6 +14,7 @@ public class Patron {
     private String phone;
     private String email;
     private boolean isHidden;
+    private final int BOOKLIMIT = 4;
     private final List<Book> books = new ArrayList<>();
     
     // TODO: implement constructor here
@@ -105,8 +106,13 @@ public class Patron {
     	}
     }
     
-    public void addBook(Book book) {
-        books.add(book);
+    public void addBook(Book book) throws LibraryException {
+    	if(books.size() >= BOOKLIMIT) {
+    		throw new LibraryException(this.getDetailsShort() + " has currently borrowed " + BOOKLIMIT + " books, which is the maximum number of books a patron can borrow.");
+    	}else {
+    		 books.add(book);
+    	}
+       
     }
     
     public void removeBook(Book book) throws LibraryException {
