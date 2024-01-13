@@ -118,8 +118,6 @@ public class MainWindow extends JFrame implements ActionListener {
         patronsMenu = new JMenu("Patrons");
         menuBar.add(patronsMenu);
 
-        patronList = new JMenuItem("List");
-
         setSize(800, 500);
 
         setVisible(true);
@@ -280,23 +278,22 @@ public class MainWindow extends JFrame implements ActionListener {
                         Integer clickedPatronID = (Integer) data[selectedRow][0];
                         Patron patronClicked = library.getPatronByID(clickedPatronID);
 
-                        // if book on loan, show the patron details
-                        if (bookClicked.isOnLoan()) {
-                            Patron borrowerPatron = bookClicked.getLoan().getPatron();
-                            String newLine = "\n";
-                            String patronDetails = "Patron ID: " + borrowerPatron.getId() + newLine + "Name: "
-                                    + borrowerPatron.getName() + newLine
-                                    + "Email: " + borrowerPatron.getEmail() + newLine + "Phone Number: "
-                                    + borrowerPatron.getPhone() + newLine;
+                        String newLine = "\n";
+                        String divider = "============================";
+                        String bookMessage = divider + newLine + patronClicked.getName() + " has "
+                                + patronClicked.getNumberOfBorrowedBooks()
+                                + " book(s) on loan." + newLine + divider + newLine;
 
-                            JOptionPane.showMessageDialog(null, patronDetails, "View Borrower Details",
+                        if (!patronClicked.isBooksListEmpty()) {
+                            for (Book book : patronClicked.getBooks()) {
+                                bookMessage = bookMessage + book.getDetailsShort() + newLine + "Due Date: "
+                                        + book.getDueDate() + newLine + divider + newLine;
+                            }
+                            JOptionPane.showMessageDialog(null, bookMessage, "View Borrowed Books",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            // else show warning: book is not on loan to view patron details
                         } else {
-                            String message = "Book is not on Loan to view borrower details";
-                            JOptionPane.showMessageDialog(null, message, "View Borrower Details",
+                            JOptionPane.showMessageDialog(null, bookMessage, "View Borrowed Books",
                                     JOptionPane.WARNING_MESSAGE);
-
                         }
 
                     } catch (LibraryException e) {
