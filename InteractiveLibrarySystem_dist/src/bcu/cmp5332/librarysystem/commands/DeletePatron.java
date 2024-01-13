@@ -24,7 +24,7 @@ public class DeletePatron implements Command{
 				try {
 					PatronDataManager patronDataManger = new PatronDataManager();
 					patronDataManger.storeData(library);
-	            	System.out.println("Patron successfully deleted.");	
+	            	System.out.println(patron.getDetailsShort() + " has been successfully deleted.");	
 				}catch (IOException e) {
 					patron.reAddPatron();
 					System.out.println("Unable to delete the patron.");

@@ -1,8 +1,10 @@
 package bcu.cmp5332.librarysystem.commands;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+import bcu.cmp5332.librarysystem.data.LoanDataManager;
 import bcu.cmp5332.librarysystem.main.LibraryException;
 import bcu.cmp5332.librarysystem.model.Book;
 import bcu.cmp5332.librarysystem.model.Library;
@@ -20,43 +22,42 @@ public class Return implements Command {
 
 	@Override
 	public void execute(Library library, LocalDate currentDate) throws LibraryException {
-		Patron patron = library.getPatronByID(patronID);
-		Book book = library.getBookByID(bookID);
 		
 		try {
+			Patron patron = library.getPatronByID(patronID);
+			Book book = library.getBookByID(bookID);
+			Loan loan = book.getLoan();
+
+			// if currentDate (date of returning book) is before due date, return the book
+			if (currentDate.isAfter(book.getDueDate())) {
+				
+				// calculate the how many days the books is overdue
+				long numberDaysOverdue = ChronoUnit.DAYS.between(book.getDueDate(), currentDate);
+
+				//overdue days are negative, so use Math.abs() method to convert to positive integer
+				System.out.println(book.getDetailsShort() + " is " + Math.abs(numberDaysOverdue) + " days overdue! ");
+				
+			}			
+			
 			patron.removeBook(book);
-	        book.returnToLibrary();
-		} catch (LibraryException e) {
-			System.out.println("invalid loan");
-		}    
-        
+			book.returnToLibrary();
+			
+            LoanDataManager loanDataManager = new LoanDataManager();
+            try {
+            	loanDataManager.storeData(library);
+            	System.out.println("Successfully returned " + book.getDetailsShort() + ".");
+            }catch(IOException e) {
+            	patron.addBook(book);
+            	patron.removeFromLoanHistory(loan);
+	            book.setLoan(loan);
+	            loan.unTerminateLoan();
+            	System.out.println("Unable to store the changes. Rolling back the changes.");
+            }
 
-		// Check if book exists in the system
-		if (!library.getBooks().contains(book)) {
-			throw new LibraryException("Book: " + book.getTitle() + "is not recognised in our system.");
+		}catch (LibraryException e) {
+			System.out.println(e.getMessage());
 		}
 
-		// Check if patron exists in the system
-		if (!library.getPatrons().contains(patron)) {
-			throw new LibraryException("Patron: " + patron.getName() + "is not recognised in our system.");
-		}
-
-		// if currentDate (date of returning book) is before due date, return the book
-		if (!currentDate.isAfter(book.getDueDate())) {
-			try {
-				patron.removeBook(book);
-				book.returnToLibrary();
-				System.out.println("Successfully returned book.");
-			} catch (LibraryException e) {
-				System.out.println("invalid loan");
-			}
-		} else {
-			// calculate the how many days the books is overdue
-			long numberDaysOverdue = ChronoUnit.DAYS.between(book.getDueDate(), currentDate);
-
-			//overdue days are negative, so use Math.abs() method to convert to positive integer
-			System.out.println("Book: " + book.getTitle() + "is " + Math.abs(numberDaysOverdue) + "days overdue! ");
-		}
 
 	}
 }

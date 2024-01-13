@@ -16,7 +16,7 @@ public class Patron {
     private boolean isHidden;
     private final int BOOKLIMIT = 4;
     private final List<Book> books = new ArrayList<>();
-    
+    private final List<Loan> loanHistory = new ArrayList<>();
     // TODO: implement constructor here
     public Patron(int id, String name, String phone, String email){
         this.id = id;
@@ -70,7 +70,7 @@ public class Patron {
     	}
     	
     	for(Book book: books) {
-    		result += "\n    " + book.getTitle();
+    		result += "\n    " + book.getDetailsShort();
     	}
         return result;
     }
@@ -118,21 +118,37 @@ public class Patron {
     public void removeBook(Book book) throws LibraryException {
         if(books.contains(book)) {
         	books.remove(book);
+        	book.getLoan().setReturnDate(LocalDate.now());
+        	book.getLoan().setTerminationStatus(true);
+        	loanHistory.add(book.getLoan());
+        	
         }else {
         	throw new LibraryException("This book has not been borrowed by this patron");
         }
    
     }
-    
+    public void removeFromLoanHistory(Loan loan) throws LibraryException {
+    	if(loanHistory.contains(loan)) {
+    		loanHistory.remove(loan);
+    	}else {
+    		throw new LibraryException("Loan not in loan history.");
+    	}
+    }
     public void removePatron() {
     	isHidden = true;
     }
     public void reAddPatron() {
     	isHidden = false;
     }
-    
+    public void addLoanToHistory(Loan loan) {
+    	loanHistory.add(loan);
+    }
     public boolean isRemoved() {
     	return isHidden;
+    }
+    public List<Loan> getLoanHistory(){
+        //TODO: Get a list of books that the patron has borrowed.
+    	return Collections.unmodifiableList(loanHistory);
     }
 }
  
