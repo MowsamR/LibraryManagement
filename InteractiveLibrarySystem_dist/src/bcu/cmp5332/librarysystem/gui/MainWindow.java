@@ -1,11 +1,16 @@
 package bcu.cmp5332.librarysystem.gui;
 
+import bcu.cmp5332.librarysystem.main.LibraryException;
 import bcu.cmp5332.librarysystem.model.Book;
 import bcu.cmp5332.librarysystem.model.Library;
 import bcu.cmp5332.librarysystem.model.Patron;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -13,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -174,39 +180,73 @@ public class MainWindow extends JFrame implements ActionListener {
     public void displayBooks() {
         List<Book> booksList = library.getBooks();
         // headers for the table
-        String[] columns = new String[] { "Title", "Author", "Pub Date", "Status", "Borrower" };
+        String[] tableColumns = new String[] { "Book ID", "Title", "Author", "Pub Date", "Status", "Borrower Details" };
 
-        Object[][] data = new Object[booksList.size()][5]; // Change the size to 5
+        Object[][] data = new Object[booksList.size()][6]; // Change the size to 5
 
         for (int i = 0; i < booksList.size(); i++) {
             Book book = booksList.get(i);
-            data[i][0] = book.getTitle();
-            data[i][1] = book.getAuthor();
-            data[i][2] = book.getPublicationYear();
-            data[i][3] = book.getStatus();
+            data[i][0] = book.getId();
+            data[i][1] = book.getTitle();
+            data[i][2] = book.getAuthor();
+            data[i][3] = book.getPublicationYear();
+            data[i][4] = book.getStatus();
 
             if (book.isOnLoan()) {
-                // Create a panel to hold the button
-                JPanel buttonPanel = new JPanel();
-                JButton borrowerDetailsButton = new JButton("View Borrower Details");
-                borrowerDetailsButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        DisplayBorrowerDetailsWindow displayWindow = new DisplayBorrowerDetailsWindow(MainWindow.this);
-                        displayWindow.setDisplayBook(book);
-                        displayWindow.setVisible(true);
-                    }
-                });
-                // Add the button to the panel
-                buttonPanel.add(borrowerDetailsButton);
-                // Set the panel as the value in data[i][4]
-                data[i][4] = buttonPanel;
+                data[i][5] = "View Borrower Details";
+
             } else {
-                data[i][4] = "N/A";
+                data[i][5] = "N/A";
             }
         }
 
-        JTable table = new JTable(data, columns);
+        JTable table = new JTable(data, tableColumns);
+        // In order to create pop up window when table cell is clicked, MouseAdapter
+        // class is used rather than MouseListener because you can
+        // override the methods that you need, in this case: only mouseClicked()
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                // get the point where mouse clicked
+                int selectedRow = table.rowAtPoint(me.getPoint());
+                int selectedColumn = table.columnAtPoint(me.getPoint());
+
+                // if user clicks on any of the "Borrower Details" column:
+                if (tableColumns[selectedColumn].equals("Borrower Details")) {
+                    try {
+                        // get the book ID where mouse was clicked
+                        Integer clickedBookID = (Integer) data[selectedRow][0];
+                        Book bookClicked = library.getBookByID(clickedBookID);
+
+                        // if book on loan, show the patron details
+                        if (bookClicked.isOnLoan()) {
+                            Patron borrowerPatron = bookClicked.getLoan().getPatron();
+                            String newLine = "\n";
+                            String patronDetails = "Patron ID: " + borrowerPatron.getId() + newLine + "Name: "
+                                    + borrowerPatron.getName() + newLine
+                                    + "Email: " + borrowerPatron.getEmail() + newLine + "Phone Number: "
+                                    + borrowerPatron.getPhone() + newLine;
+
+                            JOptionPane.showMessageDialog(null, patronDetails, "View Borrower Details",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                            // else show warning: book is not on loan to view patron details
+                        } else {
+                            String message = "Book is not on Loan to view borrower details";
+                            JOptionPane.showMessageDialog(null, message, "View Borrower Details",
+                                    JOptionPane.WARNING_MESSAGE);
+
+                        }
+
+                    } catch (LibraryException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+
+        });
+
         this.getContentPane().removeAll();
         this.getContentPane().add(new JScrollPane(table));
         this.revalidate();
