@@ -26,7 +26,11 @@ public class Library {
     public Book getBookByID(int id) throws LibraryException {
         if (!books.containsKey(id)) {
             throw new LibraryException("There is no such book with that ID.");
+        }else if(books.get(id).isRemoved()) {
+        	throw new LibraryException("This book has been deleted and is not accessible.");
         }
+        
+        
         return books.get(id);
     }
 
@@ -34,7 +38,10 @@ public class Library {
         // TODO: implementation here
         if (!patrons.containsKey(id)) {
             throw new LibraryException("There is no patron with that ID.");
+        }else if (patrons.get(id).isRemoved()) {
+            throw new LibraryException("This patron has been deleted and is not accessible.");
         }
+        
         return patrons.get(id);
     }
 
@@ -44,7 +51,14 @@ public class Library {
         }
         books.put(book.getId(), book);
     }
-
+    
+    public void removeBook(Book book) {
+        if (books.containsKey(book.getId())) {
+            books.remove(book.getId());
+        }else {
+        	throw new IllegalArgumentException("Book is not in the library.");
+        }
+    }
     public void addPatron(Patron patron) {
         // TODO: implementation here
         if (patrons.containsKey(patron.getId())) {
@@ -52,6 +66,15 @@ public class Library {
         }
         patrons.put(patron.getId(), patron);
 
+    }
+    
+    public void removePatron(Patron patron) {
+        if (patrons.containsKey(patron.getId())) {
+        	patrons.remove(patron.getId());            
+        }else {
+        	throw new IllegalArgumentException("Patron is not in the library.");
+        }
+        
     }
 }
  

@@ -26,7 +26,12 @@ public class PatronDataManager implements DataManager {
                     int id = Integer.parseInt(properties[0]);
                     String name = properties[1];
                     String phone = properties[2];
-                    Patron patron = new Patron(id, name, phone);
+                    String email = properties[3];
+                    String removed = properties[4];
+                    Patron patron = new Patron(id, name, phone, email);
+                    if(removed == "1") {
+                    	patron.removePatron();
+                    }
                     library.addPatron(patron);
                 } catch (NumberFormatException ex) {
                     throw new LibraryException("Unable to parse patron id " + properties[0] + " on line " + line_idx
@@ -45,6 +50,14 @@ public class PatronDataManager implements DataManager {
                 out.print(patron.getId() + SEPARATOR);
                 out.print(patron.getName() + SEPARATOR);
                 out.print(patron.getPhone() + SEPARATOR);
+                out.print(patron.getEmail() + SEPARATOR);
+                if(patron.isRemoved()) {
+                	// 1 = true and means that the book is removed/hidden
+                	out.print("1" + SEPARATOR);	
+                }else {
+                	//0 = false and means that the book is visible
+                	out.print("0" + SEPARATOR);
+                }
                 out.println();
             }
         }

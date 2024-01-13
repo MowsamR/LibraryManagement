@@ -15,11 +15,9 @@ public class LibraryData {
     static {
         dataManagers.add(new BookDataManager());
         dataManagers.add(new PatronDataManager());
-        
+        dataManagers.add(new LoanDataManager());
         /* Uncomment the two lines below when the implementation of their 
-        loadData() and storeData() methods is complete */
-        
-        // dataManagers.add(new LoanDataManager());
+        loadData() and storeData() methods is complete */        
     }
     
     public static Library load() throws LibraryException, IOException {

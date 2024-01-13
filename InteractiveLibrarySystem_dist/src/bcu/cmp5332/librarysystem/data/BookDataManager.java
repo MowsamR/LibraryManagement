@@ -25,7 +25,12 @@ public class BookDataManager implements DataManager {
                     String title = properties[1];
                     String author = properties[2];
                     String publicationYear = properties[3];
-                    Book book = new Book(id, title, author, publicationYear);
+                    String publisher = properties[4];
+                    String removed = properties[5];
+                    Book book = new Book(id, title, author, publicationYear, publisher);
+                    if(removed == "1") {
+                    	book.removeBook();
+                    }
                     library.addBook(book);
                 } catch (NumberFormatException ex) {
                     throw new LibraryException("Unable to parse book id " + properties[0] + " on line " + line_idx
@@ -44,6 +49,15 @@ public class BookDataManager implements DataManager {
                 out.print(book.getTitle() + SEPARATOR);
                 out.print(book.getAuthor() + SEPARATOR);
                 out.print(book.getPublicationYear() + SEPARATOR);
+                out.print(book.getPublisher() + SEPARATOR);
+                if(book.isRemoved()) {
+                	// 1 = true and means that the book is removed/hidden
+                	out.print("1" + SEPARATOR);	
+                }else {
+                	// 0 = false and means that the book is visible
+                	out.print("0" + SEPARATOR);
+                }
+                
                 out.println();
             }
         }

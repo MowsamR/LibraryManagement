@@ -2,7 +2,10 @@ package bcu.cmp5332.librarysystem.commands;
 
 import bcu.cmp5332.librarysystem.model.Book;
 import bcu.cmp5332.librarysystem.model.Library;
+import bcu.cmp5332.librarysystem.data.BookDataManager;
 import bcu.cmp5332.librarysystem.main.LibraryException;
+
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class AddBook implements  Command {
@@ -10,11 +13,13 @@ public class AddBook implements  Command {
     private final String title;
     private final String author;
     private final String publicationYear;
+    private final String publisher;
 
-    public AddBook(String title, String author, String publicationYear) {
+    public AddBook(String title, String author, String publicationYear, String publisher) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
+        this.publisher = publisher;
     }
     
     @Override
@@ -24,9 +29,17 @@ public class AddBook implements  Command {
     		int lastIndex = library.getBooks().size() - 1;
             maxId = library.getBooks().get(lastIndex).getId();
     	}
-        Book book = new Book(++maxId, title, author, publicationYear);
+        Book book = new Book(++maxId, title, author, publicationYear, publisher);
         library.addBook(book);
-        System.out.println("Book #" + book.getId() + " added.");
+        BookDataManager bookDataManager = new BookDataManager();
+        try {
+			bookDataManager.storeData(library);
+			System.out.println("Book #" + book.getId() + " added.");
+		} catch (IOException e) {
+			library.removeBook(book);
+			System.out.println("Unable to store the book. Rolling back the changes.");
+		}
+        
     }
 }
  

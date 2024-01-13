@@ -9,14 +9,18 @@ public class Book {
     private String title;
     private String author;
     private String publicationYear;
-
+    private String publisher;
+    private boolean isHidden;
+    
     private Loan loan;
 
-    public Book(int id, String title, String author, String publicationYear) {
+    public Book(int id, String title, String author, String publicationYear, String publisher) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
+        this.publisher = publisher;
+        this.isHidden = false;
     }
 
     public int getId() {
@@ -43,6 +47,14 @@ public class Book {
         this.author = author;
     }
 
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+    
     public String getPublicationYear() {
         return publicationYear;
     }
@@ -56,8 +68,19 @@ public class Book {
     }
 
     public String getDetailsLong() {
-        // TODO: implementation here
-        return null;
+		
+        String result = "Book #" + id + " - " + title +
+        		"\n  Author: " + author + 
+        		"\n  Publisher: " + publisher +
+        		"\n  Publication year: " + publicationYear;
+        
+        if(loan != null) {
+        	result += "\n  On loan to patron #" + loan.getPatron().getId() + " - " + loan.getPatron().getName() + ".";
+        }else {
+        	result += "\n  Not currently on loan.";
+        }
+        
+        return result;
     }
     
     public boolean isOnLoan() {
@@ -65,8 +88,11 @@ public class Book {
     }
     
     public String getStatus() {
-        // TODO: implementation here
-        return null;
+         if(loan != null) {
+        	 return "On loan";
+         }else {
+        	 return "Available";
+         }
     }
 
     public LocalDate getDueDate() {
@@ -87,5 +113,15 @@ public class Book {
 
     public void returnToLibrary() {
         loan = null;
+    }
+    
+    public void removeBook() {
+    	isHidden = true;
+    }
+    public void reAddBook() {
+    	isHidden = false;    	
+    }
+    public boolean isRemoved() {
+    	return isHidden;
     }
 }

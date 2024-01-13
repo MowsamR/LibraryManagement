@@ -1,7 +1,10 @@
 package bcu.cmp5332.librarysystem.main;
 
 import bcu.cmp5332.librarysystem.commands.LoadGUI;
+import bcu.cmp5332.librarysystem.commands.RenewBook;
 import bcu.cmp5332.librarysystem.commands.Return;
+import bcu.cmp5332.librarysystem.commands.ShowBook;
+import bcu.cmp5332.librarysystem.commands.ShowPatron;
 import bcu.cmp5332.librarysystem.commands.ListBooks;
 import bcu.cmp5332.librarysystem.commands.ListLoans;
 import bcu.cmp5332.librarysystem.commands.ListPatrons;
@@ -9,6 +12,8 @@ import bcu.cmp5332.librarysystem.commands.AddBook;
 import bcu.cmp5332.librarysystem.commands.AddPatron;
 import bcu.cmp5332.librarysystem.commands.Borrow;
 import bcu.cmp5332.librarysystem.commands.Command;
+import bcu.cmp5332.librarysystem.commands.DeleteBook;
+import bcu.cmp5332.librarysystem.commands.DeletePatron;
 import bcu.cmp5332.librarysystem.commands.Help;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,16 +36,20 @@ public class CommandParser {
                 String author = br.readLine();
                 System.out.print("Publication Year: ");
                 String publicationYear = br.readLine();
+                System.out.print("Publisher: ");
+                String publisher = br.readLine();
                 
-                return new AddBook(title, author, publicationYear);
+                return new AddBook(title, author, publicationYear, publisher);
             } else if (cmd.equals("addpatron")) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 System.out.print("Name: ");
                 String name = br.readLine();
                 System.out.print("Phone Number: ");
                 String phone = br.readLine();
+                System.out.print("Email: ");
+                String email = br.readLine();
                 
-                return new AddPatron(name, phone);
+                return new AddPatron(name, phone, email);
             } else if (cmd.equals("loadgui")) {
                 return new LoadGUI();
             } else if(cmd.equals("listloans")) {
@@ -57,9 +66,13 @@ public class CommandParser {
                 int id = Integer.parseInt(parts[1]);
 
                 if (cmd.equals("showbook")) {
-                    
+                	return new ShowBook(id);
                 } else if (cmd.equals("showpatron")) {
-                    
+                	return new ShowPatron(id);
+                } else if (cmd.equals("deletepatron")) {
+                	return new DeletePatron(id);
+                } else if (cmd.equals("deletebook")) {
+                	return new DeleteBook(id);
                 }
             } else if (parts.length == 3) {
                 int patronID = Integer.parseInt(parts[1]);
@@ -68,7 +81,7 @@ public class CommandParser {
                 if (cmd.equals("borrow")) {
                     return new Borrow(bookID, patronID);
                 } else if (cmd.equals("renew")) {
-                	
+                	return new RenewBook(patronID, bookID);
                 } else if (cmd.equals("return")) {
                 	return new Return(bookID, patronID);
                 }
