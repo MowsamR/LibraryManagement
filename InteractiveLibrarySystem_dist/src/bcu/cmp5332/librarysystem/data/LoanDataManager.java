@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class LoanDataManager implements DataManager {
     
-    public final String RESOURCE = "InteractiveLibrarySystem_dist/resources/data/loans.txt";
+    public final String RESOURCE = "./resources/data/loans.txt";
 
     @Override
     public void loadData(Library library) throws IOException, LibraryException {
