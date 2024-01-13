@@ -23,6 +23,7 @@ public class AddBookWindow extends JFrame implements ActionListener {
     private JTextField titleText = new JTextField();
     private JTextField authText = new JTextField();
     private JTextField pubDateText = new JTextField();
+    private JTextField pubNameText = new JTextField();
 
     private JButton addBtn = new JButton("Add");
     private JButton cancelBtn = new JButton("Cancel");
@@ -41,7 +42,7 @@ public class AddBookWindow extends JFrame implements ActionListener {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
 
-        } 
+        }
 
         setTitle("Add a New Book");
 
@@ -54,6 +55,8 @@ public class AddBookWindow extends JFrame implements ActionListener {
         topPanel.add(authText);
         topPanel.add(new JLabel("Publishing Date : "));
         topPanel.add(pubDateText);
+        topPanel.add(new JLabel("Publisher Name : "));
+        topPanel.add(pubNameText);
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new GridLayout(1, 3));
@@ -87,8 +90,10 @@ public class AddBookWindow extends JFrame implements ActionListener {
             String title = titleText.getText();
             String author = authText.getText();
             String publicationYear = pubDateText.getText();
+            String publisherName = pubDateText.getText();
+
             // create and execute the AddBook Command
-            Command addBook = new AddBook(title, author, publicationYear);
+            Command addBook = new AddBook(title, author, publicationYear, publisherName);
             addBook.execute(mw.getLibrary(), LocalDate.now());
             // refresh the view with the list of books
             mw.displayBooks();

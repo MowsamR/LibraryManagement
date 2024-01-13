@@ -1,6 +1,5 @@
 package bcu.cmp5332.librarysystem.data;
 
-import bcu.cmp5332.librarysystem.model.Book;
 import bcu.cmp5332.librarysystem.model.Library;
 import bcu.cmp5332.librarysystem.model.Patron;
 import bcu.cmp5332.librarysystem.main.LibraryException;
@@ -13,7 +12,7 @@ import java.util.Scanner;
 
 public class PatronDataManager implements DataManager {
 
-    private final String RESOURCE = "./resources/data/patrons.txt";
+    private final String RESOURCE = "InteractiveLibrarySystem_dist/resources/data/patrons.txt";
     
     @Override
     public void loadData(Library library) throws IOException, LibraryException {

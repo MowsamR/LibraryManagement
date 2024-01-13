@@ -3,12 +3,11 @@ package bcu.cmp5332.librarysystem.model;
 import bcu.cmp5332.librarysystem.main.LibraryException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class Patron {
-    
+
     private int id;
     private String name;
     private String phone;
@@ -17,6 +16,7 @@ public class Patron {
     private final int BOOKLIMIT = 4;
     private final List<Book> books = new ArrayList<>();
     private final List<Loan> loanHistory = new ArrayList<>();
+
     // TODO: implement constructor here
     public Patron(int id, String name, String phone, String email){
         this.id = id;
@@ -28,15 +28,15 @@ public class Patron {
     
     public int getId() {
         return id;
-    } 
+    }
 
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getName() {
         return name;
-    } 
+    }
 
     public void setName(String newName) {
         this.name = newName;
@@ -87,7 +87,7 @@ public class Patron {
     }
     
     public void borrowBook(Book book, LocalDate dueDate) throws LibraryException {
-    	this.addBook(book);
+        this.addBook(book);
     }
 
     public void renewBook(Book book) throws LibraryException {
@@ -98,12 +98,12 @@ public class Patron {
     }
 
     public void returnBook(Book book) throws LibraryException {
-    	if (books.contains(book)) {
+        if (books.contains(book)) {
             books.remove(book);
             book.returnToLibrary();
-    	}else {
-    		throw new LibraryException(book.getTitle() + "has not been borrowed by " + this.name);
-    	}
+        } else {
+            throw new LibraryException(book.getTitle() + "has not been borrowed by " + this.name);
+        }
     }
     
     public void addBook(Book book) throws LibraryException {
@@ -116,6 +116,7 @@ public class Patron {
     }
     
     public void removeBook(Book book) throws LibraryException {
+
         if(books.contains(book)) {
         	books.remove(book);
         	book.getLoan().setReturnDate(LocalDate.now());
@@ -125,7 +126,7 @@ public class Patron {
         }else {
         	throw new LibraryException("This book has not been borrowed by this patron");
         }
-   
+
     }
     public void removeFromLoanHistory(Loan loan) throws LibraryException {
     	if(loanHistory.contains(loan)) {
@@ -151,4 +152,3 @@ public class Patron {
     	return Collections.unmodifiableList(loanHistory);
     }
 }
- 
