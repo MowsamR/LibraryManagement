@@ -17,6 +17,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+/**
+ * AddBookWindow class extends JFrame that's responsible for creating a pop up
+ * window when the user wants to add new books.<br>
+ * This class is created and executed when "Add" option is clicked under Books
+ * Menu in MainWindow class.<br>
+ * When executed, it displays a pop up window that provide TextFields to write
+ * the book's details: "Title, Author, Publishing Date and Publisher".<br>
+ */
 public class AddBookWindow extends JFrame implements ActionListener {
 
     private MainWindow mw;
@@ -27,15 +35,21 @@ public class AddBookWindow extends JFrame implements ActionListener {
 
     private JButton addBtn = new JButton("Add");
     private JButton cancelBtn = new JButton("Cancel");
-    private JButton closeBtn = new JButton("Close");
 
+    /**
+     * Constructs AddBookWindow for referencing/connecting to the main window.
+     * 
+     * @param mw The MainWindow instance where AddBookWindow is generated.
+     */
     public AddBookWindow(MainWindow mw) {
         this.mw = mw;
         initialize();
     }
 
     /**
-     * Initialize the contents of the frame.
+     * initialize() is responsible for GUI display properties and styling on. For
+     * example, it sets window size, uses GridLayout() for JLabel Text And JButton
+     * display positions.
      */
     private void initialize() {
 
@@ -76,16 +90,40 @@ public class AddBookWindow extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * This method is responsible for handling ActionEvent instances for button
+     * clicks specifically "Add" and "Cancel" buttons. It uses getSource() method to
+     * track which button is clicked and runs the following actions accordingly.
+     * <br>
+     * addBook() method is executed to add book if "Add" button is
+     * clicked.
+     * <br>
+     * "Cancel" button closes the pop up window.
+     *
+     * @param ae ActionEvent instance (button click).
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == addBtn) {
             addBook();
+
         } else if (ae.getSource() == cancelBtn) {
             this.setVisible(false);
+            this.dispose();
         }
 
     }
 
+    /**
+     * If "ae.getSource() == addBtn" (if user clicks on add button in the window),
+     * it runs this addBook() method.<br>
+     * It checks if all the Textfields aren't empty and calls AddBook Class from
+     * Command interface to add new book.<br>
+     * If the fields are empty, JOptionPane WARNING_MESSAGE will pop up. Or else, it
+     * will display success message if the book is added without issues.
+     * <br>
+     * Finally, it will display updated book list.
+     */
     private void addBook() {
         try {
             String title = titleText.getText();

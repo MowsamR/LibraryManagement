@@ -17,8 +17,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-//REMEMBER TO ADD DOC!!
-
+/**
+ * AddPatronWindow class extends JFrame that's responsible for creating a pop up
+ * window when the user wants to add new patrons.<br>
+ * It's created and used when "Add" option is clicked under Patrons
+ * Menu in MainWindow class.<br>
+ * It displays a form to type in Patron details: (Name, Phone Number, Email).
+ * 
+ */
 public class AddPatronWindow extends JFrame implements ActionListener {
 
     private MainWindow mw;
@@ -28,15 +34,21 @@ public class AddPatronWindow extends JFrame implements ActionListener {
     private JButton addBtn = new JButton("Add");
     private JButton cancelBtn = new JButton("Cancel");
 
+    /**
+     * Constructs AddPatronWindow for referencing/connecting to the main window.
+     * 
+     * @param mw The MainWindow instance where AddPatronWindow is generated.
+     */
     public AddPatronWindow(MainWindow mw) {
         this.mw = mw;
         initialize();
     }
 
     /**
-     * Initialize the contents of the frame.
+     * initialize() is responsible for GUI display properties and styling on. For
+     * example, it sets window size, uses GridLayout() for JLabel Text And JButton
+     * display positions.
      */
-
     private void initialize() {
 
         try {
@@ -73,6 +85,20 @@ public class AddPatronWindow extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Handles ActionEvent instances for button clicks specifically "Add" and
+     * "Cancel" buttons. <br>
+     * It uses getSource() method to track which button is clicked and runs the
+     * following actions accordingly.
+     * <br>
+     * addPatron() method is executed to add patron if "Add" button is
+     * clicked.
+     * <br>
+     * "Cancel" button closes the pop up window.
+     *
+     * @param ae ActionEvent instance (button click tracking for "Add" or "Cancel"
+     *           Buttons).
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == addBtn) {
@@ -82,6 +108,16 @@ public class AddPatronWindow extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Executed when "ae.getSource() == addBtn" (if user clicks on 'add button' in
+     * the window). <br>
+     * It checks if all the Textfields aren't empty and calls AddPatron Class from
+     * Command interface to add new patron into the library.<br>
+     * If the fields are empty, JOptionPane WARNING_MESSAGE will pop up. Or else, it
+     * will display success message if the patron is added without issues.
+     * <br>
+     * Finally, it will display updated patron list.
+     */
     private void addPatron() {
         try {
             String name = patronNameText.getText();
@@ -98,7 +134,7 @@ public class AddPatronWindow extends JFrame implements ActionListener {
                 String message = "Successlly added new Patron to Library";
                 JOptionPane.showMessageDialog(this, message, " Added Patron Success ",
                         JOptionPane.INFORMATION_MESSAGE);
-                mw.displayBooks();
+                mw.listPatrons();
             }
             // Display Error message if not all fields are entered.
             else {
