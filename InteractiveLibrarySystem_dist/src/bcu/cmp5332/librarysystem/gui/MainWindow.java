@@ -47,6 +47,7 @@ public class MainWindow extends JFrame implements ActionListener {
     private JMenuItem booksDel;
     private JMenuItem booksIssue;
     private JMenuItem booksReturn;
+    private JMenuItem booksRenew;
 
     private JMenuItem memView;
     private JMenuItem memAdd;
@@ -97,11 +98,13 @@ public class MainWindow extends JFrame implements ActionListener {
         booksDel = new JMenuItem("Delete");
         booksIssue = new JMenuItem("Issue");
         booksReturn = new JMenuItem("Return");
+        booksRenew = new JMenuItem("Renew");
         booksMenu.add(booksView);
         booksMenu.add(booksAdd);
         booksMenu.add(booksDel);
         booksMenu.add(booksIssue);
         booksMenu.add(booksReturn);
+        booksMenu.add(booksRenew);
         for (int i = 0; i < booksMenu.getItemCount(); i++) {
             booksMenu.getItem(i).addActionListener(this);
         }
@@ -122,10 +125,6 @@ public class MainWindow extends JFrame implements ActionListener {
         memAdd.addActionListener(this);
         memDel.addActionListener(this);
 
-        // adding patronMenu menu and menu items
-        patronsMenu = new JMenu("Patrons");
-        menuBar.add(patronsMenu);
-
         setSize(800, 500);
 
         setVisible(true);
@@ -139,12 +138,12 @@ public class MainWindow extends JFrame implements ActionListener {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
     }
-
+    
     public static void main(String[] args) throws IOException, LibraryException {
         Library library = LibraryData.load();
         new MainWindow(library);
     }
-
+	
     @Override
     public void actionPerformed(ActionEvent ae) {
         // Exit GUI
@@ -165,9 +164,11 @@ public class MainWindow extends JFrame implements ActionListener {
             new DeleteBookWindow(this, library);
 
         } else if (ae.getSource() == booksIssue) {
-
+        	new IssueBookWindow(this, library);
         } else if (ae.getSource() == booksReturn) {
-
+        	new ReturnBookWindow(this, library);
+        } else if(ae.getSource() == booksRenew) {
+        	new RenewBookWindow(this, library);
         }
         // Display a list of existing patrons with no. of borrowed books
         else if (ae.getSource() == memView) {
@@ -210,7 +211,7 @@ public class MainWindow extends JFrame implements ActionListener {
                 data[line_idx][4] = book.getStatus();
 
                 if (book.isOnLoan()) {
-                    data[line_idx][5] = "View Borrower Details";
+                    data[line_idx][5] = "Click to View Details";
 
                 } else {
                     data[line_idx][5] = "N/A";
@@ -268,7 +269,7 @@ public class MainWindow extends JFrame implements ActionListener {
                         }
 
                     } catch (LibraryException e) {
-                        e.printStackTrace();
+                        System.out.println(e.getMessage());
                     }
 
                 }
@@ -307,7 +308,7 @@ public class MainWindow extends JFrame implements ActionListener {
                 data[line_idx][1] = patron.getName();
                 data[line_idx][2] = patron.getPhone();
                 data[line_idx][3] = patron.getEmail();
-                data[line_idx][4] = patron.getBooks().size();
+                data[line_idx][4] = patron.getBooks().size() + "(Click cell to view details)";
                 line_idx++;
         	}
         }

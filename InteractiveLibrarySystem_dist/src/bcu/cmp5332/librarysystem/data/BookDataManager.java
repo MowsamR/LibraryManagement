@@ -55,7 +55,7 @@ public class BookDataManager implements DataManager {
                     Book book = new Book(id, title, author, publicationYear, publisher);
                     
                     // If the book is supposed to be 'removed', it hides the book.
-                    if(removed == "1") {
+                    if(removed.equals("1")) {
                     	// removed == "1" means that the book is supposed to be removed/hidden.
                     	book.removeBook();
                     }

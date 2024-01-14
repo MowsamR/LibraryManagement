@@ -58,7 +58,7 @@ public class Borrow implements Command{
 			try {
 				// Attempts to store the data of the new loan by rewriting 'loan.txt'.
 				loanDataManager.storeData(library);
-				System.out.print(book.getTitle() + " has been successfully loaned to " + book.getLoan().getDueDate());
+				System.out.println(book.getDetailsShort() + " has been successfully loaned to " + patron.getDetailsShort() + " until " + book.getLoan().getDueDate());
 			}catch(IOException e) {
 				// If unable to store the changes to 'loan.txt', undo the changes.
 				patron.removeBook(book);

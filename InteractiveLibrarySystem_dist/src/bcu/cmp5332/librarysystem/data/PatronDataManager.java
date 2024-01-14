@@ -51,7 +51,7 @@ public class PatronDataManager implements DataManager {
                     Patron patron = new Patron(id, name, phone, email);
                     
                     // If the patron is supposed to be 'removed', it hides the patron.
-                    if(removed == "1") {
+                    if(removed.equals("1")) {
                     	// removed == "1" means that the patron is supposed to be removed/hidden.
                     	patron.removePatron();
                     }

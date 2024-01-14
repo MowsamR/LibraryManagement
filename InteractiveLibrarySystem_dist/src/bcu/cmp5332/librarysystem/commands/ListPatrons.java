@@ -35,6 +35,7 @@ public class ListPatrons implements Command{
         		// Patron will not be printed if patron.isisRemoved()==true which means the patron is removed.
         		System.out.println(patron.getDetailsLong());
         		
+        		System.out.println();
         		// Increments the visiblePatrons variable to print it later.
         		visiblePatrons ++;
         	}

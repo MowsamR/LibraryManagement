@@ -50,7 +50,7 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
-
+        	System.out.println(ex.getMessage());
         }
 
         setTitle("Delete Patron");

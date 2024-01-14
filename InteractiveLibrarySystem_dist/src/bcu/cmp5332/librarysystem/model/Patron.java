@@ -216,7 +216,7 @@ public class Patron {
     /** Deletes the patron by setting isHidden to true.
      */
     public void removePatron() {
-        isHidden = true;
+    	this.isHidden = true;
     }
     
     /** Removes the book from the patron's books list. <br>
@@ -235,7 +235,7 @@ public class Patron {
      * The method is used when loan changes could not be stored in the text storage file and changes need to be undone.
      */
     public void reAddPatron() {
-        isHidden = false;
+        this.isHidden = false;
     }
     
     /** Adds a loan object the loanHistory array.
@@ -249,7 +249,7 @@ public class Patron {
      * @return true if the patron is supposed to be hidden and false otherwise.
      */
     public boolean isRemoved() {
-        return isHidden;
+        return this.isHidden;
     }
     
     /** Get unmodifiable list of the loanHistory array

@@ -198,10 +198,10 @@ public class Book {
     }
     
     /** Remove the book from the library.
-     * This function is used to change the @param isHidden value to true, when deleting the book from the library.
+     * This function is used to change the isHidden value to true, when deleting the book from the library.
      */
     public void removeBook() {
-        isHidden = true;
+    	this.isHidden = true;
     }
     
     /** Undo the 'remove from library' process.
@@ -216,7 +216,7 @@ public class Book {
      * @return returns true if the book is supposed to be hidden and is not accessible
      */
     public boolean isRemoved() {
-        return isHidden;
+        return this.isHidden;
     }
 
     @Override
