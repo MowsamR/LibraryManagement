@@ -5,9 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -31,16 +29,13 @@ public class IssueBookWindow extends JFrame implements ActionListener{
     private JButton issueButton = new JButton("Issue");
     private JButton cancelButton = new JButton("Cancel");
     
-	private Patron patronSelected;
-	private int patronID;
+
 	JComboBox<Patron> patronComboBox = new JComboBox<>();
 	private Patron selectedPatron = null;
-	private JLabel selectedPatronLabel;
 	
 	JComboBox<Book> bookComboBox = new JComboBox<>();
 	private Book selectedBook = null;
-	private JLabel selectedBookLabel;
-	private int bookID;
+
 	
 	public IssueBookWindow(MainWindow mw, Library lib) {
 		this.mw = mw;

@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import bcu.cmp5332.librarysystem.main.LibraryException;
 import bcu.cmp5332.librarysystem.model.Book;
 import bcu.cmp5332.librarysystem.model.Library;
-import bcu.cmp5332.librarysystem.model.Patron;
 
 /** Shows the information of the book that has been entered by the user. <br>
  * It is an implementation of the Command interface and its execute method shows a book. <br>

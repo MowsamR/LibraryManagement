@@ -3,7 +3,6 @@ package bcu.cmp5332.librarysystem.commands;
 import bcu.cmp5332.librarysystem.model.Book;
 import bcu.cmp5332.librarysystem.model.Library;
 import bcu.cmp5332.librarysystem.data.BookDataManager;
-import bcu.cmp5332.librarysystem.main.LibraryException;
 
 import java.io.IOException;
 import java.time.LocalDate;

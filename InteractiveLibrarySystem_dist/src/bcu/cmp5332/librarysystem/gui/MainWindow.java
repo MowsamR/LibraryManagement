@@ -39,7 +39,6 @@ public class MainWindow extends JFrame implements ActionListener {
     private JMenu adminMenu;
     private JMenu booksMenu;
     private JMenu membersMenu;
-    private JMenu patronsMenu;
 
     private JMenuItem adminExit;
 
