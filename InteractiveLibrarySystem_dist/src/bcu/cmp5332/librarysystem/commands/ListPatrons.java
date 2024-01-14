@@ -20,8 +20,8 @@ public class ListPatrons implements Command{
 	
     /** Shows only the visible patrons. If a patron has been removed it will not be printed.
      * The method also prints the total number of visible patrons in the system.
-     * @param library - library object of the program.
-	 * @param currentDate - the current date.
+     * @param library library object of the program.
+	 * @param currentDate the current date.
      */
     @Override
     public void execute(Library library, LocalDate currentDate) {

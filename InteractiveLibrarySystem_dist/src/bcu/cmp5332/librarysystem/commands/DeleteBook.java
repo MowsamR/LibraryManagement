@@ -17,7 +17,7 @@ public class DeleteBook implements Command{
 	private final int bookID;
 
 	/** Initialises DeleteBook using the necessary variables. 
-	 * @param bookID - the bookID that was given to the system by the user.
+	 * @param bookID the bookID that was given to the system by the user.
 	 */
 	public DeleteBook(int bookID) {
 		this.bookID = bookID;
@@ -25,8 +25,8 @@ public class DeleteBook implements Command{
 
 	/** Deletes the book from the system.<br>
 	 * After deleting the book, it stores the changes in 'books.txt'.
-	 * @param library - library object of the program.
-	 * @param currentDate - the current date.
+	 * @param library library object of the program.
+	 * @param currentDate the current date.
 	 * @throws LibraryException if a bookID is not valid or the book is on loan and needs to be returned before deleting the book.
 	 */
 	public void execute(Library library, LocalDate currentDate) throws LibraryException {

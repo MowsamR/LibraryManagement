@@ -26,10 +26,10 @@ public class Patron {
     
     /**Creates a new Patron instance.
      * <br>The constructor initialises a Patron object using the basic mandatory fields a patron should have to exist in the library
-     * @param id - the patron's id.
-     * @param name - the patron's name
-     * @param phone - the patron's phone
-     * @param email - the patron's email
+     * @param id the patron's id.
+     * @param name the patron's name
+     * @param phone the patron's phone
+     * @param email the patron's email
      */
     public Patron(int id, String name, String phone, String email){
         this.id = id;
@@ -49,7 +49,7 @@ public class Patron {
     }
 
     /** Set the patron's id.
-     * @param id - the integer value that will be set as patron's id.
+     * @param id the integer value that will be set as patron's id.
      */
     public void setId(int id) {
         this.id = id;
@@ -63,7 +63,7 @@ public class Patron {
     }
 
     /** Set the patron's name.
-     * @param newName - the String value that will be set as patron's name
+     * @param newName the String value that will be set as patron's name
      */
     public void setName(String newName) {
         this.name = newName;
@@ -77,7 +77,7 @@ public class Patron {
     }
     
     /** Set the patron's phone.
-     * @param newPhone - the String value that will be set as patron's phone.
+     * @param newPhone the String value that will be set as patron's phone.
      */
     public void setPhone(String newPhone) {
         this.phone = newPhone;
@@ -91,7 +91,7 @@ public class Patron {
     }
     
     /** Set the patron's email.
-     * @param newEmail - the String value that will be set as patron's email.
+     * @param newEmail the String value that will be set as patron's email.
      */
     public void setEmail(String newEmail) {
     	this.email = newEmail;
@@ -148,8 +148,8 @@ public class Patron {
      * The method creates a new Loan object that associates a book with the patron and updates the book with this loan information.
      * The function also adds the book to the patron's list of borrowed books. <br>
      * If the book is on loan by another patron, an exception is thrown with a message saying that the book is currently on loan.
-     * @param book - the book that will be borrowed by the patron.
-     * @param dueDate - the LocalDate value that will be set as the loan's due date.
+     * @param book the book that will be borrowed by the patron.
+     * @param dueDate the LocalDate value that will be set as the loan's due date.
      * @throws LibraryException if the book is currently on loan to another patron.
      */
     public void borrowBook(Book book, LocalDate dueDate) throws LibraryException {
@@ -159,8 +159,8 @@ public class Patron {
     /** Renew the loan's due date for a book that is already on loan.<br>
      * The method changes (renews) the due date of a book that is currently on loan by the patron.<br>
      * If the book to be renewed is not on loan by the patron, an exception is thrown with a message saying that the book is not on loan to this patron.
-     * @param book - the book to be renewed.
-     * @param numberOfDays - number of days that the loan will be extended for.
+     * @param book the book to be renewed.
+     * @param numberOfDays number of days that the loan will be extended for.
      */
     
     public void renewBook(Book book, int numberOfDays) {
@@ -172,7 +172,7 @@ public class Patron {
     /** Renews the book from the patron's list of borrowed books. <br>
      * The method also terminates the loan by setting its return date and termination status. <br>
      * The method adds the returned book
-     * @param book - the book to be returned to the library.
+     * @param book the book to be returned to the library.
      * @throws LibraryException if the book is not on loan to this patron.
      */
     public void returnBook(Book book) throws LibraryException {
@@ -188,7 +188,7 @@ public class Patron {
     }
     
     /** Add a book to the patron's list of borrowed books.
-     * @param book - the book to be added to the patron's list of borrowed books
+     * @param book the book to be added to the patron's list of borrowed books
      * @throws LibraryException if the patron has exceeded the book limit.
      */
     public void addBook(Book book) throws LibraryException {
@@ -202,7 +202,7 @@ public class Patron {
 
     /** The method removes a loan from the loanHistory array. <br>
      * The method is used when loan changes could not be stored in the text storage file and changes need to be undone.
-     * @param loan - the loan object to be removed.
+     * @param loan the loan object to be removed.
      * @throws LibraryException
      */
     public void removeFromLoanHistory(Loan loan) throws LibraryException {
@@ -221,7 +221,7 @@ public class Patron {
     
     /** Removes the book from the patron's books list. <br>
      * This method is used when the borrow class is not able to store the data in the text storage files, and the changes need to be undone.
-     * @param book - the book to be removed.
+     * @param book the book to be removed.
      * @throws LibraryException if the book is not loaned by the patron.
      */
     public void removeBook(Book book) throws LibraryException {
@@ -239,7 +239,7 @@ public class Patron {
     }
     
     /** Adds a loan object the loanHistory array.
-     * @param loan - the loan object to be added to the loanHistory array.
+     * @param loan the loan object to be added to the loanHistory array.
      */
     public void addLoanToHistory(Loan loan) {
         loanHistory.add(loan);

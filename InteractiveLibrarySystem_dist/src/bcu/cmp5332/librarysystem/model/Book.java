@@ -23,11 +23,11 @@ public class Book {
     /**
      * The constructor initialises a Book object using the basic mandatory fields a book should have to exist in the library.
      * Additional fields can be set after initialisation using the class's setter methods 
-     * @param id - the book's id.
-     * @param title - the book's title.
-     * @param author - the book' author.
-     * @param publicationYear - the book's publication year. 
-     * @param publisher - the book's publisher.
+     * @param id the book's id.
+     * @param title the book's title.
+     * @param author the book' author.
+     * @param publicationYear the book's publication year. 
+     * @param publisher the book's publisher.
      */
     public Book(int id, String title, String author, String publicationYear, String publisher) {
         this.id = id;
@@ -46,7 +46,7 @@ public class Book {
     }
 
     /** Set the book's id
-     * @param id - the integer value that will be set as book id.
+     * @param id the integer value that will be set as book id.
      */
     public void setId(int id) {
         this.id = id;
@@ -60,7 +60,7 @@ public class Book {
     }
 
     /** Set the book's title
-     * @param title - the string value that will be set as book's title.
+     * @param title the string value that will be set as book's title.
      */
     public void setTitle(String title) {
         this.title = title;
@@ -74,7 +74,7 @@ public class Book {
     }
     
     /** Set the book's author
-     * @param author - the string value that will be set as book's author.
+     * @param author the string value that will be set as book's author.
      */
     public void setAuthor(String author) {
         this.author = author;
@@ -88,7 +88,7 @@ public class Book {
     }
 
     /** Set the book's publisher
-     * @param publisher - the string value that will be set as book's publisher.
+     * @param publisher the string value that will be set as book's publisher.
      */
     public void setPublisher(String publisher) {
         this.publisher = publisher;
@@ -102,7 +102,7 @@ public class Book {
     }
 
     /** Set the book's publication year
-     * @param publicationYear - the string value that will be set as book's publication year.
+     * @param publicationYear the string value that will be set as book's publication year.
      */
     public void setPublicationYear(String publicationYear) {
         this.publicationYear = publicationYear;
@@ -116,7 +116,7 @@ public class Book {
     }
 
     /** Get the book's Loan object that holds information about a book that is on loan
-     * @param loan - the Loan object to be set on the book.
+     * @param loan the Loan object to be set on the book.
      */
     public void setLoan(Loan loan) {
         this.loan = loan;
@@ -132,7 +132,7 @@ public class Book {
     /** Set the due date of a book. <br>
      * The function sets (changes) the due date of a book that is currently on loan.
      * If the book is not on loan, an exception should be thrown, notifying the user that the due date can't be set because the book is not on loan.
-     * @param dueDate - the LocalDate value that will be set as the book's due date
+     * @param dueDate the LocalDate value that will be set as the book's due date
      * @throws LibraryException if the book is not on loan.
      */
     public void setDueDate(LocalDate dueDate) throws LibraryException {

@@ -23,8 +23,8 @@ public class Borrow implements Command{
 	private int patronID;
 
 	/** Initialises a Borrow object using the necessary fields.
-	 * @param bookID - the bookID that was given to the system by the user. This will be used to find its book object in the system.
-	 * @param patronID - the patronID that was given to the system by the user. This will be used to find its patron object in the system.
+	 * @param bookID the bookID that was given to the system by the user. This will be used to find its book object in the system.
+	 * @param patronID the patronID that was given to the system by the user. This will be used to find its patron object in the system.
 	 */
 	public Borrow(int bookID, int patronID) {
 		this.bookID = bookID;
@@ -33,8 +33,8 @@ public class Borrow implements Command{
 	/** Creates and adds a new loan to the library. <br>
 	 * It adds the loan to the 'books' array list of the patron and sets the 'loan' parameter of the book object to the created loan object.<br>
 	 * After adding the loan to the library, it also overwrites the 'loan.txt' file with the new data.
-	 * @param library - library object of the program.
-	 * @param currentDate - the current date.
+	 * @param library library object of the program.
+	 * @param currentDate the current date.
 	 * @throws LibraryException if a patronID  or bookID is invalid, or a book is already on loan.
 	 */
 	@Override

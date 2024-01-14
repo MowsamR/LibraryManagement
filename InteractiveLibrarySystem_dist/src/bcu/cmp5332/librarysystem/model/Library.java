@@ -43,7 +43,7 @@ public class Library {
     /** Get a book from the library based on its id. <br>
      *The function looks in the collection of all the library books and returns the book that its id matches the given one. <br>
      *If a book with that id does not exist, the function throws a LibraryException with a message saying that there is no book with that id.
-     * @param id - the id of the book to be found.
+     * @param id the id of the book to be found.
      * @return the Book with id matching the one given as argument to the function.
      * @throws LibraryException if a book with that id does not exist in the library or the book is removed.
      */
@@ -60,7 +60,7 @@ public class Library {
     /** Get a patron (member) of the library based on their id. <br>
      * The function looks in the collection of all the patrons and returns the patron that its id matches the given one. <br>
      * If a patron with that id does not exist, the function throws a LibraryException with a message indicating that there is no patron with that id.
-     * @param id - the id of the patron to be found.
+     * @param id the id of the patron to be found.
      * @return the Patron with id matching the one given as argument to the function.
      * @throws LibraryException if a patron with that id does not exist in the library or the patron is removed.
      */
@@ -77,7 +77,7 @@ public class Library {
     /** Add a book to the library. <br>
      * The function adds a book to the collection of all books of the library.<br>
      * If a book with that id already exists in the library, the function throws an IllegalArgumentException with a message indicating that there is already a book with that id in the library.
-     * @param book - the Book to be added to the library.
+     * @param book the Book to be added to the library.
      */
     public void addBook(Book book) {
         if (books.containsKey(book.getId())) {
@@ -88,7 +88,7 @@ public class Library {
     
     /** Remove a book from the books list of the library. <br>
      * The method is used to undo changes if a book's information could not be added the text storage files.
-     * @param book - the book to be removed from the books list of the library.
+     * @param book the book to be removed from the books list of the library.
      */
     public void removeBook(Book book) {
         if (books.containsKey(book.getId())) {
@@ -100,7 +100,7 @@ public class Library {
     /** Add a patron to the library. <br>
      * The function adds a patron to the collection of all patrons of the library. <br>
      * If a patron with that id already exists in the library, the function throws an IllegalArgumentException with a message indicating that there is already a patron with that id in the library.
-     * @param patron - the Patron to be added to the library
+     * @param patron the Patron to be added to the library
      */
     public void addPatron(Patron patron) {
         if (patrons.containsKey(patron.getId())) {
@@ -112,7 +112,7 @@ public class Library {
     
     /** Remove a patron from the patrons list of the library. <br>
      * The method is used to undo changes if a patron's information could not be added the text storage files.
-     * @param patron - the patron to be removed from the patrons list of the library.
+     * @param patron the patron to be removed from the patrons list of the library.
      */
     public void removePatron(Patron patron) {
         if (patrons.containsKey(patron.getId())) {

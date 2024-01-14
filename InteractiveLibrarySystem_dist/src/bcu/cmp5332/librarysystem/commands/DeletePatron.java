@@ -18,7 +18,7 @@ public class DeletePatron implements Command{
 
 	private final int patronID;
 	/** Initialises and creates a DeletePatron object using the necessary variables.
-	 * @param patronID - the patronID that was given to the system by the user.
+	 * @param patronID the patronID that was given to the system by the user.
 	 */
 	public DeletePatron(int patronID) {
 		this.patronID = patronID;
@@ -26,8 +26,8 @@ public class DeletePatron implements Command{
 
 	/** Deletes the patron from the system.<br>
 	 * After deleting the patron, it stores the changes in 'patrons.txt'.
-	 * @param library - library object of the program.
-	 * @param currentDate - the current date.
+	 * @param library library object of the program.
+	 * @param currentDate the current date.
 	 * @throws LibraryException if a patronID is not valid or the patron has books that needs to be returned before deleting the patron.
 	 */
 	public void execute(Library library, LocalDate currentDate) throws LibraryException {

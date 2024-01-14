@@ -20,10 +20,10 @@ public class Loan {
 
     /** Create a new Loan instance. <br>
      * The constructor initialises a new Book instance using all the mandatory fields of the class.
-     * @param patron - the patron that borrowed the book.
-     * @param book - the book that is on loan.
-     * @param startDate - the start date of the loan as LocalDate.
-     * @param dueDate - the due date of the loan as LocalDate.
+     * @param patron the patron that borrowed the book.
+     * @param book the book that is on loan.
+     * @param startDate the start date of the loan as LocalDate.
+     * @param dueDate the due date of the loan as LocalDate.
      */
     public Loan(Patron patron, Book book, LocalDate startDate, LocalDate dueDate) {
         this.patron = patron;
@@ -44,7 +44,7 @@ public class Loan {
     }
 
     /** Set the loan's patron object.
-     * @param patron - the Patron object that will be set as the loan's patron
+     * @param patron the Patron object that will be set as the loan's patron
      */
     public void setPatron​(Patron patron) {
         this.patron = patron;
@@ -58,7 +58,7 @@ public class Loan {
     }
 
     /** Set the loan's book object.
-     * @param book - the Book object that will be set as the loan's book.
+     * @param book the Book object that will be set as the loan's book.
      */
     public void setBook​(Book book) {
         this.book = book;
@@ -72,7 +72,7 @@ public class Loan {
     }
 
     /** Set the loan's start date.
-     * @param startDate - the LocalDate value that will be set as the loan's start date
+     * @param startDate the LocalDate value that will be set as the loan's start date
      */
     public void setStartDate​(LocalDate startDate) {
         this.startDate = startDate;
@@ -86,7 +86,7 @@ public class Loan {
     }
     
     /** Set the loan's due date.
-     * @param dueDate - the LocalDate value that will be set as the loan's due date
+     * @param dueDate the LocalDate value that will be set as the loan's due date
      */
     public void setDueDate​(LocalDate dueDate) {
         this.dueDate = dueDate;
@@ -100,7 +100,7 @@ public class Loan {
     }
     
     /** Set the loan's termination status.
-     * @param isTerminated - true to terminate the loan and false to undo the changes.
+     * @param isTerminated true to terminate the loan and false to undo the changes.
      */
     public void setTerminationStatus(boolean isTerminated) {
     	this.isTerminated = isTerminated;
@@ -114,7 +114,7 @@ public class Loan {
     }
     
     /** Set the loan's return date.
-     * @param returnDate - the LocalDate value that will be set as the loan's return date.
+     * @param returnDate the LocalDate value that will be set as the loan's return date.
      */
     public void setReturnDate(LocalDate returnDate) {
     	this.returnDate = returnDate;
@@ -137,8 +137,6 @@ public class Loan {
     	isTerminated = false;
     	returnDate = null;
     }
-    
-
 
 }
  
