@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -39,16 +38,13 @@ public class RenewBookWindow extends JFrame implements ActionListener{
     private JButton renewButton = new JButton("Renew");
     private JButton cancelButton = new JButton("Cancel");
     
-	private Patron patronSelected;
-	private int patronID;
+
 	JComboBox<Patron> patronComboBox = new JComboBox<>();
 	private Patron selectedPatron = null;
-	private JLabel selectedPatronLabel;
 	
 	JComboBox<Book> bookComboBox = new JComboBox<>();
 	private Book selectedBook = null;
-	private JLabel selectedBookLabel;
-	private int bookID;
+
 	
 	JPanel patronPanel = new JPanel();
 	JPanel bookPanel = new JPanel();

@@ -5,10 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -39,16 +37,13 @@ public class ReturnBookWindow extends JFrame implements ActionListener{
     private JButton returnButton = new JButton("Return");
     private JButton cancelButton = new JButton("Cancel");
     
-	private Patron patronSelected;
-	private int patronID;
+
 	JComboBox<Patron> patronComboBox = new JComboBox<>();
 	private Patron selectedPatron = null;
-	private JLabel selectedPatronLabel;
 	
 	JComboBox<Book> bookComboBox = new JComboBox<>();
 	private Book selectedBook = null;
-	private JLabel selectedBookLabel;
-	private int bookID;
+
 	
 	JPanel patronPanel = new JPanel();
 	JPanel bookPanel = new JPanel();
@@ -184,7 +179,6 @@ public class ReturnBookWindow extends JFrame implements ActionListener{
 	 *  Then it adds the borrowed books of the currently selected patron on by one.
 	 */
 	private void refreshBookComboBox() {
-        ArrayList<Book> borrowedBooks = new ArrayList<Book>();
         emptyBookComboBox();
         for(Book book: library.getBooks()) {
         	if(book.isOnLoan() && book.getLoan().getPatron() == selectedPatron) {
