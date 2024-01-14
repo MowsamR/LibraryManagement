@@ -42,11 +42,11 @@ public class AddPatronWindow extends JFrame implements ActionListener {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
-            
+
         }
         setTitle("Add a New Patron");
 
-        setSize(300, 200);
+        setSize(500, 200);
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(5, 2));
         topPanel.add(new JLabel("Name : "));
@@ -85,15 +85,28 @@ public class AddPatronWindow extends JFrame implements ActionListener {
     private void addPatron() {
         try {
             String name = patronNameText.getText();
-            String phoneNumer = patronPhoneNumText.getText();
+            String phoneNumber = patronPhoneNumText.getText();
             String email = patronEmailText.getText();
-            // create and execute the AddPatron Command
-            Command addPatron = new AddPatron(name, phoneNumer, email);
-            addPatron.execute(mw.getLibrary(), LocalDate.now());
-            // refresh the view with the list of patrons
-            mw.listPatrons();
-            // hide (close) the AddPatronWindow
-            this.setVisible(false);
+
+            // These conditionals ensure that all textfields are entered before adding.
+            if (!name.isEmpty() && !phoneNumber.isEmpty() && !email.isEmpty()) {
+                // create and execute the AddPatron Command
+                Command addPatron = new AddPatron(name, phoneNumber, email);
+                addPatron.execute(mw.getLibrary(), LocalDate.now());
+
+                // Display success message
+                String message = "Successlly added new Patron to Library";
+                JOptionPane.showMessageDialog(this, message, " Added Patron Success ",
+                        JOptionPane.INFORMATION_MESSAGE);
+                mw.displayBooks();
+            }
+            // Display Error message if not all fields are entered.
+            else {
+                String message = "Please enter all the Fields!";
+                JOptionPane.showMessageDialog(null, message, "Error: Enter All TextFields",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+
         } catch (LibraryException ex) {
             JOptionPane.showMessageDialog(this, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }

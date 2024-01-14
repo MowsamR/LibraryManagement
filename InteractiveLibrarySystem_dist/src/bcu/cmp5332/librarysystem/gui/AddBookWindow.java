@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class AddBookWindow extends JFrame implements ActionListener {
@@ -27,6 +28,7 @@ public class AddBookWindow extends JFrame implements ActionListener {
 
     private JButton addBtn = new JButton("Add");
     private JButton cancelBtn = new JButton("Cancel");
+    private JButton closeBtn = new JButton("Close");
 
     public AddBookWindow(MainWindow mw) {
         this.mw = mw;
@@ -92,13 +94,25 @@ public class AddBookWindow extends JFrame implements ActionListener {
             String publicationYear = pubDateText.getText();
             String publisherName = pubDateText.getText();
 
-            // create and execute the AddBook Command
-            Command addBook = new AddBook(title, author, publicationYear, publisherName);
-            addBook.execute(mw.getLibrary(), LocalDate.now());
-            // refresh the view with the list of books
-            mw.displayBooks();
-            // hide (close) the AddBookWindow
-            this.setVisible(false);
+            // These conditionals ensure that all textfields are entered before adding.
+            if (!title.isEmpty() && !author.isEmpty() && !publicationYear.isEmpty() && !publisherName.isEmpty()) {
+                // create and execute the AddBook Command
+                Command addBook = new AddBook(title, author, publicationYear, publisherName);
+                addBook.execute(mw.getLibrary(), LocalDate.now());
+
+                // Display success message
+                String message = "Successlly added new Book to Library";
+                JOptionPane.showMessageDialog(this, message, " Added Book Success ",
+                        JOptionPane.INFORMATION_MESSAGE);
+                mw.displayBooks();
+            }
+            // Display Error message if not all fields are entered.
+            else {
+                String message = "Please enter all the Fields!";
+                JOptionPane.showMessageDialog(null, message, "Error: Enter All TextFields",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+
         } catch (LibraryException ex) {
             JOptionPane.showMessageDialog(this, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }

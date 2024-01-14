@@ -1,18 +1,25 @@
 package bcu.cmp5332.librarysystem.gui;
 
+import bcu.cmp5332.librarysystem.commands.DeletePatron;
+import bcu.cmp5332.librarysystem.data.LibraryData;
 import bcu.cmp5332.librarysystem.main.LibraryException;
 import bcu.cmp5332.librarysystem.model.Book;
 import bcu.cmp5332.librarysystem.model.Library;
 import bcu.cmp5332.librarysystem.model.Patron;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -22,7 +29,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.table.JTableHeader;
 
 public class MainWindow extends JFrame implements ActionListener {
 
@@ -132,11 +142,10 @@ public class MainWindow extends JFrame implements ActionListener {
 
     }
 
-    /* Uncomment the following code to run the GUI version directly from the IDE */
-    // public static void main(String[] args) throws IOException, LibraryException {
-    // Library library = LibraryData.load();
-    // new MainWindow(library);
-    // }
+    public static void main(String[] args) throws IOException, LibraryException {
+        Library library = LibraryData.load();
+        new MainWindow(library);
+    }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -152,7 +161,10 @@ public class MainWindow extends JFrame implements ActionListener {
         else if (ae.getSource() == booksAdd) {
             new AddBookWindow(this);
 
-        } else if (ae.getSource() == booksDel) {
+        }
+        // Delete Books on a pop up window
+        else if (ae.getSource() == booksDel) {
+            new DeleteBookWindow(this, library);
 
         } else if (ae.getSource() == booksIssue) {
 
@@ -167,12 +179,13 @@ public class MainWindow extends JFrame implements ActionListener {
         else if (ae.getSource() == memAdd) {
             new AddPatronWindow(this);
         } else if (ae.getSource() == memDel) {
-
+            new DeletePatronWindow(this, library);
         }
     }
 
     public void displayBooks() {
         List<Book> booksList = library.getBooks();
+
         // headers for the table
         String[] tableColumns = new String[] { "Book ID", "Title", "Author", "Pub Date", "Status", "Borrower Details" };
 
@@ -180,21 +193,36 @@ public class MainWindow extends JFrame implements ActionListener {
 
         for (int i = 0; i < booksList.size(); i++) {
             Book book = booksList.get(i);
-            data[i][0] = book.getId();
-            data[i][1] = book.getTitle();
-            data[i][2] = book.getAuthor();
-            data[i][3] = book.getPublicationYear();
-            data[i][4] = book.getStatus();
+            if (!book.isRemoved()) {
+                data[i][0] = book.getId();
+                data[i][1] = book.getTitle();
+                data[i][2] = book.getAuthor();
+                data[i][3] = book.getPublicationYear();
+                data[i][4] = book.getStatus();
 
-            if (book.isOnLoan()) {
-                data[i][5] = "View Borrower Details";
+                if (book.isOnLoan()) {
+                    data[i][5] = "View Borrower Details";
 
+                } else {
+                    data[i][5] = "N/A";
+                }
             } else {
-                data[i][5] = "N/A";
+                continue;
             }
         }
 
         JTable table = new JTable(data, tableColumns);
+        // table header styling
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setBackground(Color.lightGray);
+        tableHeader.setForeground(Color.BLACK);
+        tableHeader.setFont(new Font("Ariel", Font.PLAIN, 20));
+        tableHeader.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        // table cell styling
+        table.setFont(new Font("Ariel", Font.PLAIN, 15));
+        table.setBorder(BorderFactory.createLineBorder(Color.black));
+        table.setRowHeight(30);
         // In order to create pop up window when table cell is clicked, MouseAdapter
         // class is used rather than MouseListener because you can
         // override the methods that you need, in this case: only mouseClicked()
@@ -256,22 +284,37 @@ public class MainWindow extends JFrame implements ActionListener {
 
         for (int i = 0; i < patronList.size(); i++) {
             Patron patron = patronList.get(i);
-            data[i][0] = patron.getId();
-            data[i][1] = patron.getName();
-            data[i][2] = patron.getPhone();
-            data[i][3] = patron.getEmail();
-            data[i][4] = patron.getBooks().size();
-
+            if (!patron.isRemoved()) {
+                data[i][0] = patron.getId();
+                data[i][1] = patron.getName();
+                data[i][2] = patron.getPhone();
+                data[i][3] = patron.getEmail();
+                data[i][4] = patron.getBooks().size();
+            }
         }
         JTable table = new JTable(data, columns);
+        // table header styling
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setBackground(Color.lightGray);
+        tableHeader.setForeground(Color.BLACK);
+        tableHeader.setFont(new Font("Ariel", Font.PLAIN, 20));
+        tableHeader.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        // table cell styling
+        table.setFont(new Font("Ariel", Font.PLAIN, 15));
+        table.setBorder(BorderFactory.createLineBorder(Color.black));
+        table.setRowHeight(30);
+
+        // this MouseListener is for situations when user click on "Number of Borrowed
+        // books" Column
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                // get the point where mouse clicked
+                // get the exact point (row and column) where mouse is clicked
                 int selectedRow = table.rowAtPoint(me.getPoint());
                 int selectedColumn = table.columnAtPoint(me.getPoint());
 
-                // if user clicks on any of the "Borrower Details" column:
+                // if user clicks on any records from the "Borrower Details" column:
                 if (columns[selectedColumn].equals("Number of Borrowed Books")) {
                     try {
                         // get the book ID where mouse was clicked
@@ -283,7 +326,7 @@ public class MainWindow extends JFrame implements ActionListener {
                         String bookMessage = divider + newLine + patronClicked.getName() + " has "
                                 + patronClicked.getNumberOfBorrowedBooks()
                                 + " book(s) on loan." + newLine + divider + newLine;
-
+                        // If patron's borrowed book list isn't empty:
                         if (!patronClicked.isBooksListEmpty()) {
                             for (Book book : patronClicked.getBooks()) {
                                 bookMessage = bookMessage + book.getDetailsShort() + newLine + "Due Date: "
@@ -291,7 +334,9 @@ public class MainWindow extends JFrame implements ActionListener {
                             }
                             JOptionPane.showMessageDialog(null, bookMessage, "View Borrowed Books",
                                     JOptionPane.INFORMATION_MESSAGE);
-                        } else {
+                        }
+                        // If borrowed book list is empty:
+                        else {
                             JOptionPane.showMessageDialog(null, bookMessage, "View Borrowed Books",
                                     JOptionPane.WARNING_MESSAGE);
                         }
