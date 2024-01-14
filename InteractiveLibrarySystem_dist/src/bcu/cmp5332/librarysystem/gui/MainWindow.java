@@ -223,7 +223,7 @@ public class MainWindow extends JFrame implements ActionListener {
         List<Book> booksList = library.getBooks();
 
         // headers for the table
-        String[] tableColumns = new String[] { "Book ID", "Title", "Author", "Pub Date", "Status", "Borrower Details" };
+        String[] tableColumns = new String[] { "Book ID", "Title", "Author", "Pub Date","Publisher ", "Status", "Borrower Details" };
 
         // The number of book that are supposed to be visible (not hidden).
         int visibleBooks = 0;
@@ -237,7 +237,7 @@ public class MainWindow extends JFrame implements ActionListener {
             visibleBooks += book.isRemoved() ? 0 : 1;
         }
 
-        Object[][] data = new Object[visibleBooks][6]; // Change the size to 5
+        Object[][] data = new Object[visibleBooks][7]; // Change the size to 5
         int line_idx = 0;
         for (Book book : booksList) {
             if (!book.isRemoved()) {
@@ -245,13 +245,14 @@ public class MainWindow extends JFrame implements ActionListener {
                 data[line_idx][1] = book.getTitle();
                 data[line_idx][2] = book.getAuthor();
                 data[line_idx][3] = book.getPublicationYear();
-                data[line_idx][4] = book.getStatus();
+                data[line_idx][4] = book.getPublisher();
+                data[line_idx][5] = book.getStatus();
 
                 if (book.isOnLoan()) {
-                    data[line_idx][5] = "Click to View Details";
+                    data[line_idx][6] = "Click to View Details";
 
                 } else {
-                    data[line_idx][5] = "N/A";
+                    data[line_idx][6] = "N/A";
                 }
                 line_idx++;
             }
