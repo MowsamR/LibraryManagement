@@ -21,7 +21,8 @@ import java.util.Scanner;
  */
 public class LoanDataManager implements DataManager {
     
-    public final String RESOURCE = "InteractiveLibrarySystem_dist/resources/data/loans.txt";
+    // public final String RESOURCE = "InteractiveLibrarySystem_dist/resources/data/loans.txt";
+	public final String RESOURCE = "./resources/data/loans.txt";
 
     /** Loads data from 'loans.txt'.
      * The method opens the file that holds the books data using the RESOURCES variable which stores the file path.<br>

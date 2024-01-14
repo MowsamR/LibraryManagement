@@ -17,7 +17,8 @@ import java.util.Scanner;
  */
 public class BookDataManager implements DataManager {
     
-    private final String RESOURCE = "InteractiveLibrarySystem_dist/resources/data/books.txt";
+    // private final String RESOURCE = "InteractiveLibrarySystem_dist/resources/data/books.txt";
+	private final String RESOURCE = "./resources/data/books.txt";
     
     /** Loads data from 'books.txt'. <br>
      * The method opens the file that holds the books data using the RESOURCES variable which stores the file path. <br>

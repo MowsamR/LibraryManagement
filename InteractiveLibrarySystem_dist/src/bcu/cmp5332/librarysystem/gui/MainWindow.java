@@ -187,26 +187,36 @@ public class MainWindow extends JFrame implements ActionListener {
         // headers for the table
         String[] tableColumns = new String[] { "Book ID", "Title", "Author", "Pub Date", "Status", "Borrower Details" };
 
-        Object[][] data = new Object[booksList.size()][6]; // Change the size to 5
+        
 
-        for (int i = 0; i < booksList.size(); i++) {
-            Book book = booksList.get(i);
-            if (!book.isRemoved()) {
-                data[i][0] = book.getId();
-                data[i][1] = book.getTitle();
-                data[i][2] = book.getAuthor();
-                data[i][3] = book.getPublicationYear();
-                data[i][4] = book.getStatus();
+        
+        // The number of book that are supposed to be visible (not hidden).
+        int visibleBooks = 0;
+        // Calculates the number of visible book to use for initialising the 'data' 2d object.
+        for(Book book: booksList) {
+        	// A ternary statement that if the book.isRemoved() == true, adds nothing (0) to visibleBooks.
+        	// If book.isRemoved() == false, then the book is visible, and it increments visibleBooks by 1.
+        	visibleBooks += book.isRemoved() ? 0 : 1;
+        }
+        
+        Object[][] data = new Object[visibleBooks][6]; // Change the size to 5
+        int line_idx = 0;
+        for(Book book: booksList) {
+        	if(!book.isRemoved()) {
+                data[line_idx][0] = book.getId();
+                data[line_idx][1] = book.getTitle();
+                data[line_idx][2] = book.getAuthor();
+                data[line_idx][3] = book.getPublicationYear();
+                data[line_idx][4] = book.getStatus();
 
                 if (book.isOnLoan()) {
-                    data[i][5] = "View Borrower Details";
+                    data[line_idx][5] = "View Borrower Details";
 
                 } else {
-                    data[i][5] = "N/A";
+                    data[line_idx][5] = "N/A";
                 }
-            } else {
-                continue;
-            }
+                line_idx++;
+        	}
         }
 
         JTable table = new JTable(data, tableColumns);
@@ -275,21 +285,33 @@ public class MainWindow extends JFrame implements ActionListener {
     // REMEMBER TO ADD DOC!!
     public void listPatrons() {
         List<Patron> patronList = library.getPatrons();
+
         // headers for the table
         String[] columns = new String[] { "ID", "Name", "Phone Number", "Email", "Number of Borrowed Books" };
-
-        Object[][] data = new Object[patronList.size()][6];
-
-        for (int i = 0; i < patronList.size(); i++) {
-            Patron patron = patronList.get(i);
-            if (!patron.isRemoved()) {
-                data[i][0] = patron.getId();
-                data[i][1] = patron.getName();
-                data[i][2] = patron.getPhone();
-                data[i][3] = patron.getEmail();
-                data[i][4] = patron.getBooks().size();
-            }
+        
+        // The number of patrons that are supposed to be visible (not hidden).
+        int visiblePatrons = 0;
+        // Calculates the number of visible patrons to use for initialising the 'data' 2d object.
+        for(Patron patron: patronList) {
+        	// A ternary statement that if the patron.isRemoved == true, adds nothing (0) to visiblePatrons.
+        	// If patron.isRemoved() == false, then the patron is visible, and it increments visiblePatrons by 1.
+        	visiblePatrons += patron.isRemoved() ? 0 : 1;
         }
+        
+        Object[][] data = new Object[visiblePatrons][6];
+        
+        int line_idx = 0;
+        for(Patron patron: patronList) {
+        	if(!patron.isRemoved()) {
+                data[line_idx][0] = patron.getId();
+                data[line_idx][1] = patron.getName();
+                data[line_idx][2] = patron.getPhone();
+                data[line_idx][3] = patron.getEmail();
+                data[line_idx][4] = patron.getBooks().size();
+                line_idx++;
+        	}
+        }
+        
         JTable table = new JTable(data, columns);
         // table header styling
         JTableHeader tableHeader = table.getTableHeader();
@@ -340,7 +362,7 @@ public class MainWindow extends JFrame implements ActionListener {
                         }
 
                     } catch (LibraryException e) {
-                        e.printStackTrace();
+                        System.out.println(e.getMessage());
                     }
 
                 }
