@@ -14,8 +14,8 @@ public class ListBooks implements Command {
 
     /** Shows only the visible books. If a book has been removed it will not be printed.<br>
      * The method also prints the total number of visible books in the system.
-     * @param library - library object of the program.
-	 * @param currentDate - the current date.
+     * @param library library object of the program.
+	 * @param currentDate the current date.
      */
     @Override
     public void execute(Library library, LocalDate currentDate) {

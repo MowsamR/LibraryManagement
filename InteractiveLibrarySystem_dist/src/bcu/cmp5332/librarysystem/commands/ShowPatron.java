@@ -15,15 +15,15 @@ public class ShowPatron implements Command{
 
 	private final int patronID;
 	/** Initialises and creates a ShowPatron object using the necessary variables.
-	 * @param patronID - the patronID that was given to the system by the user.
+	 * @param patronID the patronID that was given to the system by the user.
 	 */
 	public ShowPatron(int patronID) {
 		this.patronID = patronID;
 	}
 
 	/** Shows the patron details including their name, phone number, email address, and the books they are currently borrowing.
-	 * @param library - library object of the program.
-	 * @param currentDate - the current date.
+	 * @param library library object of the program.
+	 * @param currentDate the current date.
 	 * @throws LibraryException if the patronID cannot be found.
 	 */
 	@Override

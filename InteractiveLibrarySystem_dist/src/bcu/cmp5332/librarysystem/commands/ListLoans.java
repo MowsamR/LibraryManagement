@@ -12,8 +12,8 @@ import bcu.cmp5332.librarysystem.model.Library;
 public class ListLoans implements Command{
 	
 	/** The method lists all the active loans by iterating over each book and checking if it is currently on loan. 
-	 * @param library - library object of the program.
-	 * @param currentDate - the current date.
+	 * @param library library object of the program.
+	 * @param currentDate the current date.
 	 */
 	@Override
 	public void execute(Library library, LocalDate currentDate) {

@@ -15,15 +15,15 @@ public class ShowBook implements Command{
 	private final int bookID;
 	
 	/** Initialises and creates a ShowBook object using the necessary variables.
-	 * @param bookID - the bookID that was given to the system by the user.
+	 * @param bookID the bookID that was given to the system by the user.
 	 */
 	public ShowBook(int bookID) {
 		this.bookID = bookID;
 	}
 	
 	/** Shows the book details including its title, author, publisher and publication year.
-	 * @param library - library object of the program.
-	 * @param currentDate - the current date.
+	 * @param library library object of the program.
+	 * @param currentDate the current date.
 	 * @throws LibraryException if the bookID cannot be found.
 	 */
 	@Override

@@ -165,7 +165,7 @@ public class MainWindow extends JFrame implements ActionListener {
     /**
      * Perform actions and run commands depending on which Menu item is chosen.
      * 
-     * @param ae ActionEvent Instance that's created on the selected Menu Item
+     * @param an ActionEvent Instance that's created on the selected Menu Item
      */
 
     @Override

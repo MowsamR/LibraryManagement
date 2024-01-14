@@ -100,7 +100,7 @@ public class AddBookWindow extends JFrame implements ActionListener {
      * <br>
      * "Cancel" button closes the pop up window.
      *
-     * @param ae ActionEvent instance (button click).
+     * @param an ActionEvent instance (button click).
      */
     @Override
     public void actionPerformed(ActionEvent ae) {

@@ -21,10 +21,10 @@ public class AddBook implements  Command {
 
     /**
      * Initialises an AddBook object using the necessary fields. 
-     * @param title - the title of the new book.
-     * @param author - the author of the new book.
-     * @param publicationYear - the publication year of the new book.
-     * @param publisher - the publisher of the new book.
+     * @param title the title of the new book.
+     * @param author the author of the new book.
+     * @param publicationYear the publication year of the new book.
+     * @param publisher the publisher of the new book.
      */
     public AddBook(String title, String author, String publicationYear, String publisher) {
         this.title = title;
@@ -35,8 +35,8 @@ public class AddBook implements  Command {
     
     /** Creates and adds a new book to the library. <br>
      * After adding the book to the library, it also overwrites the 'books.txt' file with the new data.
-     * @param library - library object of the program.
-	 * @param currentDate - the current date.
+     * @param library library object of the program.
+	 * @param currentDate the current date.
      */
     @Override
     public void execute(Library library, LocalDate currentDate){

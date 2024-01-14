@@ -19,8 +19,8 @@ public class RenewBook implements Command{
 	private final int bookID;
 
 	/** Initialises and creates a RenewBook object using the necessary variables.
-	 * @param patronID - the patronID that was given to the system by the user.
-	 * @param bookID - the bookID that was given to the system by the user.
+	 * @param patronID the patronID that was given to the system by the user.
+	 * @param bookID the bookID that was given to the system by the user.
 	 */
 	public  RenewBook(int patronID, int bookID) {
 		this.patronID = patronID;
@@ -29,8 +29,8 @@ public class RenewBook implements Command{
 
 	/** Renews the book from the system.<br>
 	 * After renewing the loans, it stores the changes in 'loans.txt'.
-	 * @param library - library object of the program.
-	 * @param currentDate - the current date.
+	 * @param library library object of the program.
+	 * @param currentDate the current date.
 	 * @throws LibraryException if the patronID and bookID cannot be found or the book is not on loan to the given patron.
 	 */ 
 	@Override

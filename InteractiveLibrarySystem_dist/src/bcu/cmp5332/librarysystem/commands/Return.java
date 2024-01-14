@@ -21,8 +21,8 @@ public class Return implements Command {
 	private int patronID;
 
 	/** Initialises and creates a Return object using the necessary variables.
-	 * @param patronID - the patronID that was given to the system by the user.
-	 * @param bookID - the bookID that was given to the system by the user.
+	 * @param patronID the patronID that was given to the system by the user.
+	 * @param bookID the bookID that was given to the system by the user.
 	 */
 	public Return(int bookID, int patronID) {
 		this.bookID = bookID;
@@ -31,8 +31,8 @@ public class Return implements Command {
 
 	/**Returns a book to the library.<br>
 	 * After renewing the loans, it stores the changes in 'loans.txt'.
-	 * @param library - library object of the program.
-	 * @param currentDate - the current date.
+	 * @param library library object of the program.
+	 * @param currentDate the current date.
 	 * @throws LibraryException if the patronID and bookID cannot be found or the book is not on loan to the given patron.
 	 */
 	@Override

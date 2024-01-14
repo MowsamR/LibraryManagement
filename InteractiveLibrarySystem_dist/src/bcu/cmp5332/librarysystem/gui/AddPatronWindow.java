@@ -96,7 +96,7 @@ public class AddPatronWindow extends JFrame implements ActionListener {
      * <br>
      * "Cancel" button closes the pop up window.
      *
-     * @param ae ActionEvent instance (button click tracking for "Add" or "Cancel"
+     * @param an ActionEvent instance (button click tracking for "Add" or "Cancel"
      *           Buttons).
      */
     @Override

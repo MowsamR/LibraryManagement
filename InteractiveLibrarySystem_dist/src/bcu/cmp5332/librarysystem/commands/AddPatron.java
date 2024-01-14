@@ -20,9 +20,9 @@ public class AddPatron implements Command {
 
     /**
      * Initialises an AddPatron object using the necessary fields.
-     * @param name - the name of the new patron.
-     * @param phone - the phone number of the new patron.
-     * @param email = the email address of the new patron.
+     * @param name the name of the new patron.
+     * @param phone the phone number of the new patron.
+     * @param email the email address of the new patron.
      */
     public AddPatron(String name, String phone, String email) {
         this.name = name;
@@ -32,8 +32,8 @@ public class AddPatron implements Command {
 
     /** Creates and adds a new patron to the library.<br>
      * After adding the patron to the library, it also overwrites the 'patrons.txt' file with the new data.
-	 * @param library - library object of the program.
-	 * @param currentDate - the current date.
+	 * @param library library object of the program.
+	 * @param currentDate the current date.
      */
     @Override
     public void execute(Library library, LocalDate currentDate) {

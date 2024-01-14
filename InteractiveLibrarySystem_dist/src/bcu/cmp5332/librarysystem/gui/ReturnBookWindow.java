@@ -22,6 +22,14 @@ import bcu.cmp5332.librarysystem.model.Patron;
 import bcu.cmp5332.librarysystem.commands.Command;
 import bcu.cmp5332.librarysystem.commands.Return;
 
+/**
+ * ReturnBookWindow class extends JFrame that's responsible for creating a pop up
+ * window when the user wants return a book.<br>
+ * This class is created and executed when "Return" option is clicked under Books
+ * Menu in MainWindow class.<br>
+ * When executed, it displays a pop up window that provides two combo boxes to select
+ * the patron and the book.<br>
+ */
 public class ReturnBookWindow extends JFrame implements ActionListener{
 	private MainWindow mw;
 	private Library library; 
@@ -41,12 +49,21 @@ public class ReturnBookWindow extends JFrame implements ActionListener{
 	JPanel bookPanel = new JPanel();
 	JPanel bottomPanel = new JPanel();
 	
+	/** Constructs ReturnBookWindow for referencing/connecting to the main window.
+	 * @param mw The MainWindow instance where AddBookWindow is generated.
+	 * @param lib the library of the system that includes data of the patrons and books.
+	 */
 	public ReturnBookWindow(MainWindow mw, Library lib) {
 		this.mw = mw;
 		this.library = lib;
 		initialize();
 	}
 	
+    /**
+     * initialize() is responsible for GUI display properties and styling. For
+     * example, it sets window size, uses FlowLayout() for JLabel, ComboBox, and JButton
+     * display positions.
+     */
 	private void initialize() {
 		
         try {
@@ -94,6 +111,20 @@ public class ReturnBookWindow extends JFrame implements ActionListener{
         
         setVisible(true);
 	}
+	
+    /**
+     * This method is responsible for handling ActionEvent instances for buttons "Return" and "Cancel".
+     * The method Also handles actions for combo boxes in the window.
+     * It uses getSource() method to
+     * track which button is clicked and runs the following actions accordingly.
+     * <br>
+     * returnBook.execute() method is executed to renew a loan, if "Renew" button is
+     * clicked.
+     * <br>
+     * "Cancel" button closes the pop up window.
+     *
+     * @param e an ActionEvent instance (button click).
+     */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == patronComboBox) {
@@ -141,6 +172,12 @@ public class ReturnBookWindow extends JFrame implements ActionListener{
 		}
 		
 	}
+	
+	/** refreshBookComboBox changes the items of the bookComboBox
+	 * 	to the borrowed books of the currently selected patron. <br>
+	 *  The method calls the 'emptyBookComboBox' in order to first empty the bookComboBox.
+	 *  Then it adds the borrowed books of the currently selected patron on by one.
+	 */
 	private void refreshBookComboBox() {
         emptyBookComboBox();
         for(Book book: library.getBooks()) {
@@ -152,6 +189,9 @@ public class ReturnBookWindow extends JFrame implements ActionListener{
         bookPanel.add(bookComboBox);
 	}
 	
+	/**
+	 * The method empties the bookComboBox by removing its items using a while loop until all the items are removed.
+	 */
 	private void emptyBookComboBox() {
 		while(bookComboBox.getItemCount() > 0) {
 			bookComboBox.removeItemAt(0);
