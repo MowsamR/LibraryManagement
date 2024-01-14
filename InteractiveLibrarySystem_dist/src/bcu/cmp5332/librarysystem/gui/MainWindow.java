@@ -157,10 +157,10 @@ public class MainWindow extends JFrame implements ActionListener {
      * @throws LibraryException
      */
 
-    public static void main(String[] args) throws IOException, LibraryException {
-        Library library = LibraryData.load();
-        new MainWindow(library);
-    }
+   // public static void main(String[] args) throws IOException, LibraryException {
+   //     Library library = LibraryData.load();
+    //    new MainWindow(library);
+   // }
 
 
     /**

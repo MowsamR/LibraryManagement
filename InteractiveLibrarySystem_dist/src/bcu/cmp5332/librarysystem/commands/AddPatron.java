@@ -35,9 +35,28 @@ public class AddPatron implements Command {
      * After adding the patron to the library, it also overwrites the 'patrons.txt' file with the new data.
 	 * @param library library object of the program.
 	 * @param currentDate the current date.
+     * @throws LibraryException if any fields are empty.
      */
     @Override
-    public void execute(Library library, LocalDate currentDate) {
+    public void execute(Library library, LocalDate currentDate) throws LibraryException {
+    	// Makes sure all the fields have been entered.
+    	if(name.isBlank()) {
+    		throw new LibraryException("The name field can not be empty.");
+    	} else if(phone.isBlank()) {
+    		throw new LibraryException("The phone field can not be empty.");
+    	} else if(email.isBlank()) {
+    		throw new LibraryException("The email field can not be empty.");
+    	}
+    	
+    	for(Patron patron : library.getPatrons()) {
+    		if(patron.getName().equals(name)) {
+    			throw new LibraryException("This name already exists in the system.");
+    		} else if(patron.getPhone().equals(phone)) {
+        		throw new LibraryException("This phone already exists in the system.");
+        	} else if(patron.getEmail().equals(email)) {
+        		throw new LibraryException("This email already exists in the system.");
+        	}
+    	}
     	// Initialises the maxId variable. 
         int maxId = 0;
         

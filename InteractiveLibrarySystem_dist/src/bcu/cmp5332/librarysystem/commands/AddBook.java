@@ -38,9 +38,27 @@ public class AddBook implements  Command {
      * After adding the book to the library, it also overwrites the 'books.txt' file with the new data.
      * @param library library object of the program.
 	 * @param currentDate the current date.
+     * @throws LibraryException if any fields are empty.
      */
     @Override
-    public void execute(Library library, LocalDate currentDate){
+    public void execute(Library library, LocalDate currentDate) throws LibraryException{
+    	// Makes sure all the fields have been entered.
+    	if(title.isBlank()) {
+    		throw new LibraryException("The title field can not be empty.");
+    	} else if(author.isBlank()) {
+    		throw new LibraryException("The author field can not be empty.");
+    	} else if(publicationYear.isBlank()) {
+    		throw new LibraryException("The publication year field can not be empty.");
+    	} else if(publisher.isBlank()) {
+    		throw new LibraryException("The publisher field can not be empty.");
+    	}
+    	
+    	for(Book book : library.getBooks()) {
+    		if(book.getTitle().equals(title)) {
+    			throw new LibraryException("This book title already exists in the system.");
+    		}
+    	}
+    	
         // Initialises the maxId variable. 
     	int maxId = 0;
     	
