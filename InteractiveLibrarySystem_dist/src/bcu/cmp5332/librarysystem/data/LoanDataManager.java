@@ -49,8 +49,9 @@ public class LoanDataManager implements DataManager {
                 String[] properties = line.split(SEPARATOR, -1);
                 try {
                 	// Tries to parse the properties accordingly.
-                	Patron patron = library.getPatronByID(Integer.parseInt(properties[0]));
-                	Book book = library.getBookByID(Integer.parseInt(properties[1]));
+                	// The 'IDForAll' functions return the id of the patron/book whether it has been removed or not.
+                	Patron patron = library.getPatronByIDForAll(Integer.parseInt(properties[0]));
+                	Book book = library.getBookByIDForAll(Integer.parseInt(properties[1]));
                 	LocalDate startDate = LocalDate.parse(properties[2]);
                 	LocalDate dueDate = LocalDate.parse(properties[3]);
                 	

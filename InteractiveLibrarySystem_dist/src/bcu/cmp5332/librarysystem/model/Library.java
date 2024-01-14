@@ -56,7 +56,22 @@ public class Library {
         
         return books.get(id);
     }
-
+    
+    /** Get a book from the library based on its id. It also returns the id of a book that has been deleted.<br>
+     * The method is used in data managers where there needs to be access to removed books. <br>
+     *The function looks in the collection of all the library books and returns the book that its id matches the given one. <br>
+     *If a book with that id does not exist, the function throws a LibraryException with a message saying that there is no book with that id.
+     * @param id the id of the book to be found.
+     * @return the Book with id matching the one given as argument to the function.
+     * @throws LibraryException if a book with that id does not exist in the library.
+     */
+    public Book getBookByIDForAll(int id) throws LibraryException {
+        if (!books.containsKey(id)) {
+            throw new LibraryException("There is no such book with ID #" + id + ".");
+        }
+        
+        return books.get(id);
+    }
     /** Get a patron (member) of the library based on their id. <br>
      * The function looks in the collection of all the patrons and returns the patron that its id matches the given one. <br>
      * If a patron with that id does not exist, the function throws a LibraryException with a message indicating that there is no patron with that id.
@@ -69,6 +84,22 @@ public class Library {
             throw new LibraryException("There is no patron with ID #" + id + ".");
         }else if (patrons.get(id).isRemoved()) {
             throw new LibraryException("This patron has been deleted and is not accessible.");
+        }
+        
+        return patrons.get(id);
+    }
+    
+    /** Get a patron (member) of the library based on their id. It also returns the id of a book that has been deleted <br>
+     * The method is used in data managers where there needs to be access to removed patrons. <br>
+     * The function looks in the collection of all the patrons and returns the patron that its id matches the given one. <br>
+     * If a patron with that id does not exist, the function throws a LibraryException with a message indicating that there is no patron with that id.
+     * @param id the id of the patron to be found.
+     * @return the Patron with id matching the one given as argument to the function.
+     * @throws LibraryException if a patron with that id does not exist in the library.
+     */
+    public Patron getPatronByIDForAll(int id) throws LibraryException {
+        if (!patrons.containsKey(id)) {
+            throw new LibraryException("There is no patron with ID #" + id + ".");
         }
         
         return patrons.get(id);
