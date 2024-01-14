@@ -1,6 +1,5 @@
 package bcu.cmp5332.librarysystem.gui;
 
-import bcu.cmp5332.librarysystem.commands.DeletePatron;
 import bcu.cmp5332.librarysystem.data.LibraryData;
 import bcu.cmp5332.librarysystem.main.LibraryException;
 import bcu.cmp5332.librarysystem.model.Book;
@@ -13,25 +12,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
 import javax.swing.table.JTableHeader;
 
+/**
+ * MainWindow creates the environment for displaying GUI components and
+ * configures the interactions between different componenets.<br>
+ * Commands (borrow, display, delete, etc...) are stored in Books and Patron
+ * Menus respectively and the commands are run when the user clicks on a
+ * specific command.
+ */
 public class MainWindow extends JFrame implements ActionListener {
 
     private JMenuBar menuBar;
@@ -60,12 +61,21 @@ public class MainWindow extends JFrame implements ActionListener {
         this.library = library;
     }
 
+    /**
+     * Gets the Library instance to carry out commands
+     * 
+     * @return current Library instance
+     */
     public Library getLibrary() {
         return library;
     }
 
     /**
-     * Initialize the contents of the frame.
+     * Loads the Main GUI frame that will display all the components.
+     * It creates Menu for Admin,Book,Patrons that all contains certain Menu Items
+     * for carrying out commands accordingly. <br>
+     * Overall, it configures and sets the display size and functionality of the
+     * Library GUI.
      */
     private void initialize() {
 
@@ -140,11 +150,23 @@ public class MainWindow extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * main method that start/loads up the Library GUI
+     * 
+     * @param args
+     * @throws IOException
+     * @throws LibraryException
+     */
     public static void main(String[] args) throws IOException, LibraryException {
         Library library = LibraryData.load();
         new MainWindow(library);
     }
 
+    /**
+     * Perform actions and run commands depending on which Menu item is chosen.
+     * 
+     * @param ae ActionEvent Instance that's created on the selected Menu Item
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         // Exit GUI
@@ -158,15 +180,17 @@ public class MainWindow extends JFrame implements ActionListener {
         // Displays a popup menu to add book
         else if (ae.getSource() == booksAdd) {
             new AddBookWindow(this);
-
         }
         // Delete Books on a pop up window
         else if (ae.getSource() == booksDel) {
             new DeleteBookWindow(this, library);
+        }
+        // Borrow Books on Pop up window
+        else if (ae.getSource() == booksIssue) {
 
-        } else if (ae.getSource() == booksIssue) {
-
-        } else if (ae.getSource() == booksReturn) {
+        }
+        // Return Books on Pop up window
+        else if (ae.getSource() == booksReturn) {
 
         }
         // Display a list of existing patrons with no. of borrowed books
@@ -176,33 +200,43 @@ public class MainWindow extends JFrame implements ActionListener {
         // Displays a popup menu to add patron
         else if (ae.getSource() == memAdd) {
             new AddPatronWindow(this);
-        } else if (ae.getSource() == memDel) {
+        }
+        // Display popup window to delete patron
+        else if (ae.getSource() == memDel) {
             new DeletePatronWindow(this, library);
         }
     }
 
+    /**
+     * Creates a table view of all the books in the library database that are not
+     * removed("hidden").<br>
+     * It displays column headers and multiple rows of book instances.<br>
+     * The last column "Borrower Details" opens pop up window if it specifically
+     * says "View Borrower Details". It displays the
+     * details about the patron currently borrowing that book.
+     */
     public void displayBooks() {
         List<Book> booksList = library.getBooks();
 
         // headers for the table
         String[] tableColumns = new String[] { "Book ID", "Title", "Author", "Pub Date", "Status", "Borrower Details" };
 
-        
-
-        
         // The number of book that are supposed to be visible (not hidden).
         int visibleBooks = 0;
-        // Calculates the number of visible book to use for initialising the 'data' 2d object.
-        for(Book book: booksList) {
-        	// A ternary statement that if the book.isRemoved() == true, adds nothing (0) to visibleBooks.
-        	// If book.isRemoved() == false, then the book is visible, and it increments visibleBooks by 1.
-        	visibleBooks += book.isRemoved() ? 0 : 1;
+        // Calculates the number of visible book to use for initialising the 'data' 2d
+        // object.
+        for (Book book : booksList) {
+            // A ternary statement that if the book.isRemoved() == true, adds nothing (0) to
+            // visibleBooks.
+            // If book.isRemoved() == false, then the book is visible, and it increments
+            // visibleBooks by 1.
+            visibleBooks += book.isRemoved() ? 0 : 1;
         }
-        
+
         Object[][] data = new Object[visibleBooks][6]; // Change the size to 5
         int line_idx = 0;
-        for(Book book: booksList) {
-        	if(!book.isRemoved()) {
+        for (Book book : booksList) {
+            if (!book.isRemoved()) {
                 data[line_idx][0] = book.getId();
                 data[line_idx][1] = book.getTitle();
                 data[line_idx][2] = book.getAuthor();
@@ -216,7 +250,7 @@ public class MainWindow extends JFrame implements ActionListener {
                     data[line_idx][5] = "N/A";
                 }
                 line_idx++;
-        	}
+            }
         }
 
         JTable table = new JTable(data, tableColumns);
@@ -282,36 +316,45 @@ public class MainWindow extends JFrame implements ActionListener {
         this.revalidate();
     }
 
-    // REMEMBER TO ADD DOC!!
+    /**
+     * Creates a Table display view that lists all the unhidden "not deleted"
+     * patrons in the library systen.
+     * It contains table headers and the last header "Number of Borrowed Books"
+     * specifically opens a pop up window that displays the number of books
+     * borrowed by the patron and all the respective details about the books.
+     */
     public void listPatrons() {
         List<Patron> patronList = library.getPatrons();
 
         // headers for the table
         String[] columns = new String[] { "ID", "Name", "Phone Number", "Email", "Number of Borrowed Books" };
-        
+
         // The number of patrons that are supposed to be visible (not hidden).
         int visiblePatrons = 0;
-        // Calculates the number of visible patrons to use for initialising the 'data' 2d object.
-        for(Patron patron: patronList) {
-        	// A ternary statement that if the patron.isRemoved == true, adds nothing (0) to visiblePatrons.
-        	// If patron.isRemoved() == false, then the patron is visible, and it increments visiblePatrons by 1.
-        	visiblePatrons += patron.isRemoved() ? 0 : 1;
+        // Calculates the number of visible patrons to use for initialising the 'data'
+        // 2d object.
+        for (Patron patron : patronList) {
+            // A ternary statement that if the patron.isRemoved == true, adds nothing (0) to
+            // visiblePatrons.
+            // If patron.isRemoved() == false, then the patron is visible, and it increments
+            // visiblePatrons by 1.
+            visiblePatrons += patron.isRemoved() ? 0 : 1;
         }
-        
+
         Object[][] data = new Object[visiblePatrons][6];
-        
+
         int line_idx = 0;
-        for(Patron patron: patronList) {
-        	if(!patron.isRemoved()) {
+        for (Patron patron : patronList) {
+            if (!patron.isRemoved()) {
                 data[line_idx][0] = patron.getId();
                 data[line_idx][1] = patron.getName();
                 data[line_idx][2] = patron.getPhone();
                 data[line_idx][3] = patron.getEmail();
                 data[line_idx][4] = patron.getBooks().size();
                 line_idx++;
-        	}
+            }
         }
-        
+
         JTable table = new JTable(data, columns);
         // table header styling
         JTableHeader tableHeader = table.getTableHeader();

@@ -24,11 +24,15 @@ import bcu.cmp5332.librarysystem.main.LibraryException;
 import bcu.cmp5332.librarysystem.model.Book;
 import bcu.cmp5332.librarysystem.model.Library;
 
+/**
+ * DeleteBookWindow provides user to delete books from the library via GUI. It
+ * is executed when user clicks on 'delete' option under Books menu.
+ * User select the book for deletion on a dropdown list that contains all the
+ * books in library.
+ */
 public class DeleteBookWindow extends JFrame implements ActionListener {
 
     private MainWindow mw;
-
-    private JComboBox<String> comboBox;
     private JButton deleteButton = new JButton("Delete");
     private JButton cancelButton = new JButton("Cancel");
     private Library library;
@@ -36,6 +40,12 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
     private Book bookSelected;
     private int bookID;
 
+    /**
+     * Constructs DeleteBookWindow for referencing/connecting to the main window.
+     * 
+     * @param mw  MainWindow instance where AddBookWindow is generated.
+     * @param lib Library Instance containing the book.
+     */
     public DeleteBookWindow(MainWindow mw, Library lib) {
         this.mw = mw;
         this.library = lib;
@@ -43,7 +53,11 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
     }
 
     /**
-     * Initialize the contents of the frame.
+     * initialize() is responsible for GUI display properties and styling on. For
+     * example, it sets window size, uses FlowLayout() for JLabel Text And JButton
+     * display positions. <br>
+     * Additionally, it contains methods for setting/configuring JComboBox dropdown
+     * list and actionListeners of tracking the book option chosen.
      */
     private void initialize() {
 
@@ -54,24 +68,26 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
         }
 
         setTitle("Delete Book");
-
+        // Styling and Layout
         setSize(600, 250);
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new FlowLayout());
-
         topPanel.add(new JLabel("Select Book: "));
 
-        // This is a dropdown option that shows all existing books
         List<Book> bookList = library.getBooks();
-        // used to store the names of books in comboBox
+        // This makes the droplist into "Book" class type
         DefaultComboBoxModel<Book> bookModel = new DefaultComboBoxModel<>(bookList.toArray(new Book[0]));
+
+        // used to store the names of books in comboBox
         JComboBox<Book> comboBox = new JComboBox<>(bookModel);
 
-        // This action listener stores the clicked option into variable so that it's
-        // accessible later on when you click delete
+        // This action listener stores the Book ID of the clicked Book option so that
+        // it's accessible later on when you click delete and deleteBook() method is
+        // called.
         comboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 bookSelected = comboBox.getItemAt(comboBox.getSelectedIndex());
+                // deleteBook() will use this ID as reference to delete book.
                 bookID = bookSelected.getId();
                 selectedLabelOption.setText("\nSelected book for deletetion: " + bookSelected);
             }
@@ -97,6 +113,18 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Handles ActionEvent instances for button clicks specifically "Delete" and
+     * "Cancel" buttons. <br>
+     * It uses getSource() method to track which button is clicked and runs the
+     * following actions accordingly. <br>
+     * deleteBook() method is executed to delete book if "Delete" button is clicked.
+     * <br>
+     * "Cancel" button closes the pop up window.
+     * 
+     * @param ae ActionEvent instance (button click tracking for "Add" or "Cancel"
+     *           Buttons).
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == deleteButton) {
@@ -108,6 +136,14 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Using the Book ID, it calls DeleteBook Class from Command Interface to delete
+     * the book. If successfull, it shows a popup JOPtionPane message to indicating
+     * successfull deletion.
+     * <br>
+     * Then, it will display the updated list of books.
+     * 
+     */
     private void deleteBook() {
         try {
             Command deleteBook = new DeleteBook(bookID);
@@ -121,16 +157,6 @@ public class DeleteBookWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, e, "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-    }
-
-    public List<String> bookDropdownOption() {
-        List<Book> bookList = library.getBooks();
-        // used to store the names of books in comboBox
-        List<String> bookNames = new ArrayList<>();
-        for (Book book : bookList) {
-            bookNames.add(book.getDetailsShort());
-        }
-        return bookNames;
     }
 
 }

@@ -24,11 +24,16 @@ import bcu.cmp5332.librarysystem.main.LibraryException;
 import bcu.cmp5332.librarysystem.model.Library;
 import bcu.cmp5332.librarysystem.model.Patron;
 
+/**
+ * DeletePatronWindow allows user to delete patrons from the library via GUI. It
+ * is executed when user clicks on 'delete' option under Patrons menu.
+ * User select the patron for deletion on a dropdown list that contains all the
+ * patrons in library.
+ */
 public class DeletePatronWindow extends JFrame implements ActionListener {
 
     private MainWindow mw;
 
-    private JComboBox<String> comboBox;
     private JButton deleteButton = new JButton("Delete");
     private JButton cancelButton = new JButton("Cancel");
     private Library library;
@@ -36,6 +41,12 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
     private Patron patronSelected;
     private int patronID;
 
+    /**
+     * Constructs DeletePatronWindow for referencing/connecting to the main window.
+     * 
+     * @param mw  MainWindow instance where AddPatronWindow is generated.
+     * @param lib Library Instance containing the patron.
+     */
     public DeletePatronWindow(MainWindow mw, Library lib) {
         this.mw = mw;
         this.library = lib;
@@ -43,7 +54,11 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
     }
 
     /**
-     * Initialize the contents of the frame.
+     * initialize() is responsible for GUI display properties and styling on. For
+     * example, it sets window size, uses FlowLayout() for JLabel Text And JButton
+     * display positions. <br>
+     * Additionally, it contains methods for setting/configuring JComboBox dropdown
+     * list and actionListeners of tracking the patron option chosen.
      */
     private void initialize() {
 
@@ -61,14 +76,17 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
 
         topPanel.add(new JLabel("Select Patron: "));
 
-        // This is a dropdown option that shows all existing patrons
         List<Patron> patronList = library.getPatrons();
-        // used to store the names of patrons in comboBox
+        // This makes the droplist into "Patron" class type
         DefaultComboBoxModel<Patron> patronModel = new DefaultComboBoxModel<>(patronList.toArray(new Patron[0]));
+
+        // used to store the names of patrons in comboBox
         JComboBox<Patron> comboBox = new JComboBox<>(patronModel);
 
-        // This action listener stores the clicked option into variable so that it's
-        // accessible later on when you click delete
+        // This action listener stores the Patron ID of the clicked Patron option so
+        // that
+        // it's accessible later on when you click delete and deletePatron() method is
+        // called.
         comboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 patronSelected = comboBox.getItemAt(comboBox.getSelectedIndex());
@@ -97,6 +115,19 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Handles ActionEvent instances for button clicks specifically "Delete" and
+     * "Cancel" buttons. <br>
+     * It uses getSource() method to track which button is clicked and runs the
+     * following actions accordingly. <br>
+     * deletePatron() method is executed to delete patron from library if "Delete"
+     * button is clicked.
+     * <br>
+     * "Cancel" button closes the pop up window.
+     * 
+     * @param ae ActionEvent instance (button click tracking for "Add" or "Cancel"
+     *           Buttons).
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == deleteButton) {
@@ -108,6 +139,13 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Using the Patron ID, it calls DeletePatron Class from Command Interface to
+     * delete the patron. If successfull, it shows a popup JOPtionPane message to
+     * indicating successfull deletion.
+     * <br>
+     * Then, it will display the updated list of patrons.
+     */
     private void deletePatron() {
         try {
             Command deletePatron = new DeletePatron(patronID);
@@ -121,16 +159,6 @@ public class DeletePatronWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, e, "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-    }
-
-    public List<String> patronDropdownOption() {
-        List<Patron> patronList = library.getPatrons();
-        // used to store the names of patron in comboBox
-        List<String> patronNames = new ArrayList<>();
-        for (Patron patron : patronList) {
-            patronNames.add(patron.getDetailsShort());
-        }
-        return patronNames;
     }
 
 }
