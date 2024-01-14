@@ -129,7 +129,7 @@ public class AddBookWindow extends JFrame implements ActionListener {
             String title = titleText.getText();
             String author = authText.getText();
             String publicationYear = pubDateText.getText();
-            String publisherName = pubDateText.getText();
+            String publisherName = pubNameText.getText();
 
             // These conditionals ensure that all textfields are entered before adding.
             if (!title.isEmpty() && !author.isEmpty() && !publicationYear.isEmpty() && !publisherName.isEmpty()) {

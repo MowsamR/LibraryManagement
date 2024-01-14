@@ -5,3 +5,9 @@
 44::test::author::1972::publisher::1::
 45::Atomic Habits::James Clear::2018::Avery::0::
 46::Tom & Jerry::Author1::1980::Disney::0::
+47::Frankenstein::Mary Shelley::1818::Lackington::0::
+48::The Shining::Stephen King::1977::Doubleday::0::
+49::A Tale of Two Cities::Charles Dickens::1859::Chapman & Hall::0::
+50::War and Peace::Leo Tolstoy::1869::The Russian Messenger::0::
+51::Crime and Punishment::Fydor Dostoyevsky::1866::The Russian Messenger::0::
+52::48 Laws of Power::Robert Greene::2007::HighBridge Audio::0::
