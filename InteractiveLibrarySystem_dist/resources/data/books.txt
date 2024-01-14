@@ -1,7 +1,7 @@
-15::Pride and Prejudice::Jane Austen::1813::::0::
-23::Nineteen Eighty-Four::George Orwell::1949::::0::
-42::The Hitchhiker's Guide to the Galaxy::Douglas Adams::1979::::0::
-43::The War of The Worlds::H.G. Wells::1898::::0::
+15::Pride and Prejudice::Jane Austen::1813::Whitehall::0::
+23::Nineteen Eighty-Four::George Orwell::1949::Secker & Warburg::0::
+42::The Hitchhiker's Guide to the Galaxy::Douglas Adams::1979::Pan Books::0::
+43::The War of The Worlds::H.G. Wells::1898::William Heinemann::0::
 44::test::author::1972::publisher::1::
-45::Atomic Habits::James Clear::2018::2018::0::
-46::Tom & Jerry::Author1::1980::1980::0::
+45::Atomic Habits::James Clear::2018::Avery::0::
+46::Tom & Jerry::Author1::1980::Disney::0::
