@@ -11,3 +11,4 @@
 50::War and Peace::Leo Tolstoy::1869::The Russian Messenger::0::
 51::Crime and Punishment::Fydor Dostoyevsky::1866::The Russian Messenger::0::
 52::48 Laws of Power::Robert Greene::2007::HighBridge Audio::0::
+53::Java All-in-One For Dummies::Doug Lowe::2023::For Dummies::1::

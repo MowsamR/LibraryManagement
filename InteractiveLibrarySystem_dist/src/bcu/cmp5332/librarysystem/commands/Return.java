@@ -74,7 +74,5 @@ public class Return implements Command {
 			loan.unTerminateLoan();
 			System.out.println("Unable to store the changes. Rolling back the changes.");
 		}
-
-
 	}
 }

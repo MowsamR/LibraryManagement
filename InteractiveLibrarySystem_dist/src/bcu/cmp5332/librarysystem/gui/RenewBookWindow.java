@@ -166,7 +166,7 @@ public class RenewBookWindow extends JFrame implements ActionListener{
 			} else {
 				
 				// If the patron and book have correctly selected, initialises a returnBook Command object.
-				Command returnBook = new RenewBook(selectedBook.getId(), selectedPatron.getId());
+				Command returnBook = new RenewBook(selectedPatron.getId(), selectedBook.getId());
 				try {
 					// Executing the returnBook command.
 					returnBook.execute(library, LocalDate.now());

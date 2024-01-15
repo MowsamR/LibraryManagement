@@ -18,7 +18,9 @@ public class ListLoans implements Command{
 	@Override
 	public void execute(Library library, LocalDate currentDate) {
 		for(Book book: library.getBooks()) {
-			
+			if(book.isRemoved()) {
+				continue;
+			}
 			// Shows the book's borrower if on loan and shows 'is Available!' if book is not on loan currently.
 			if(book.isOnLoan()) {
 				System.out.println(book.getDetailsShort() + " has been loaned to " + book.getLoan().getPatron().getDetailsShort());

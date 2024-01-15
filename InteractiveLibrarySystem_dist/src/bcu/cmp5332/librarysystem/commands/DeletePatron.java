@@ -55,9 +55,5 @@ public class DeletePatron implements Command{
 		}else {
 			throw new LibraryException("Selected patron cannot be deleted because they have a book loaned to them. Please first return the books and then try again.");
 		}
-
-
-
-
 	}
 }
